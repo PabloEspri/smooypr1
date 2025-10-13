@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smooy.smooypr1"
-    android:versionCode="5"
-    android:versionName="5.0" >
+    android:versionCode="6"
+    android:versionName="6.0" >
 
     <uses-sdk
         android:minSdkVersion="26"
@@ -77,7 +77,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.smooy.smooypr1.CrearUsuariosActivity" />
         <activity
             android:name="com.smooy.smooypr1.MenuActivity"
             android:exported="true" />
