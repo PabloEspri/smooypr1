@@ -1,0 +1,5 @@
+<resources>
+    <!-- Existing dimensions... -->
+    <dimen name="standard_75">75dp</dimen>
+    <dimen name="standard_145">145dp</dimen>
+</resources>

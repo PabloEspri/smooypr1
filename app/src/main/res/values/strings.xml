@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">SMÖOY</string>
+    <string name="tipo_proceso_prompt">Seleccione el tipo de proceso</string>
+    <string name="frecuencia_prompt">Seleccione la frecuencia</string>
+    <string name="estado_prompt">Seleccione el estado</string>
+    <string name="descripcion_hint">Descripción breve</string>
+    <string name="horario_hint">Horario</string>
+    <string name="fecha_inicio_hint">Fecha de inicio</string>
+    <string name="fecha_fin_hint">Fecha de fin</string>
+    <string name="ubicacion_hint">Ubicación</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="establecimiento_prompt">Selecciona un establecimiento</string>
+    <string-array name="tipo_proceso_array">
+        <item>APERTURA</item>
+        <item>TRASCURSO DE LA JORNADA</item>
+        <item>CIERRE</item>
+        <item>PROCESO SEMANAL</item>
+        <item>PROCESO MENSUAL</item>
+    </string-array>
+    <string-array name="frecuencia_array">
+        <item>Diaria</item>
+        <item>Semanal</item>
+        <item>Mensual</item>
+    </string-array>
+    <string-array name="estado_array">
+        <item>Verificación pendiente</item>
+        <item>No verificado</item>
+        <item>No finalizado</item>
+        <item>En proceso</item>
+        <item>Finalizado</item>
+    </string-array>
+    <string-array name="categoria_array">
+        <item>Seleccione una categoría</item>
+        <item>Cierre</item>
+        <item>Apertura</item>
+        <item>Trascurso de Jornada</item>
+        <item>Proceso Mensual</item>
+        <item>Proceso Semanal</item>
+        <item>Otro...</item>
+    </string-array>
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Area Manager</item>
+        <item>Store Manager</item>
+        <item>RRHH</item>
+        <item>Staff</item>
+    </string-array>
+    <string-array name="tipos_establecimientos_array">
+        <item>SMOOY PROPIO</item>
+        <item>SMOOY R</item>
+        <item>SMOOY CREAM</item>
+        <item>SMOOY YOGUR</item>
+    </string-array>
+    <string-array name="estados_establecimientos_array">
+        <item>Activo</item>
+        <item>Inactivo</item>
+        <item>En construcción</item>
+        <item>En renovación</item>
+    </string-array>
+</resources>

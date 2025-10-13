@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryLight"
+    tools:context=".procesos.ProcesoDetalleActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarProceso"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryDark"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTituloProceso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DETALLE DEL PROCESO"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/grande"
+            android:layout_gravity="center" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="76dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Card para detalles fijos del proceso -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/procesoDetalleCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/primaryDark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <!-- Título -->
+                    <TextView
+                        android:id="@+id/tvTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detalles del Proceso"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/grande"
+                        android:textColor="@android:color/white"
+                        android:layout_gravity="center_horizontal" />
+
+                    <!-- Subtítulo -->
+                    <TextView
+                        android:id="@+id/tvSubtitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Información detallada"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/grande"
+                        android:textColor="@android:color/white"
+                        android:alpha="0.8"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center_horizontal" />
+
+                    <!-- Información detallada -->
+                    <TextView
+                        android:id="@+id/tvEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado: Activo"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvDescripcionBreve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción: Descripción del proceso"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvFrecuencia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Frecuencia: Diaria"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvHorario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horario: 08:00 - 17:00"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvFechaInicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha inicio: 01/01/2025"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvFechaFin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha fin: 31/12/2025"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone" />
+
+                    <!-- Botón Ver Tareas -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVerTareas"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:text="Ver Tareas del Proceso"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/grande"
+                        android:layout_marginTop="16dp"
+                        app:cornerRadius="12dp"
+                        app:icon="@android:drawable/ic_menu_agenda"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:iconSize="24dp"
+                        android:textColor="@color/primaryDark"
+                        android:backgroundTint="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Comentarios -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Comentarios"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/grande"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryDark" />
+
+                    <TextView
+                        android:id="@+id/emptyCommentsView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="No hay comentarios"
+                        android:fontFamily="@font/grande"
+                        android:visibility="gone"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/commentsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+
+                    <!-- Botón para añadir comentario (visible solo para staff) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Añadir Comentario"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/grande"
+                        app:cornerRadius="12dp"
+                        app:icon="@android:drawable/ic_input_add"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:iconSize="24dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Fotos -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/white"/>
+
+            <!-- Secciones de formulario ocultas -->
+            <LinearLayout
+                android:id="@+id/commentInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Escribe un comentario"
+                    android:fontFamily="@font/grande"
+                    android:textColor="@color/primaryDark"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etNewComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F5F5F5"
+                    android:hint="Escribe tu comentario aquí..."
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:padding="12dp"
+                    android:fontFamily="@font/grande"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmitComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Enviar Comentario"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/grande"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/photoInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Agregar una foto"
+                    android:fontFamily="@font/grande"
+                    android:textColor="@color/primaryDark"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSelectPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Seleccionar Imagen"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/grande"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_gallery"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="24dp" />
+
+                <ImageView
+                    android:id="@+id/imgPhotoPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="Vista previa de la imagen"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUploadPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Subir Foto"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/grande"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_upload"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="24dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Botón Volver (ahora en la parte inferior) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/volver"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Volver"
+        android:textSize="16sp"
+        android:fontFamily="@font/grande"
+        android:layout_margin="16dp"
+        app:cornerRadius="12dp"
+        app:icon="@android:drawable/ic_menu_revert"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconSize="24dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/errorColor"
+        android:layout_gravity="bottom" />
+
+    <!-- FAB principal -->
+
+    <!-- FAB para comentario (oculto inicialmente) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="90dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primaryDark"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/fabAgregarComentario"
+        app:layout_anchorGravity="bottom|center"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="160dp"
+        android:src="@android:drawable/ic_menu_edit"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:backgroundTint="@color/primaryDark"
+        app:tint="@color/white"/>
+
+    <!-- FAB para foto (oculto inicialmente) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="230dp"
+        android:src="@android:drawable/ic_menu_camera"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:backgroundTint="@color/primaryDark"
+        app:tint="@color/white"/>
+
+    <!-- Etiquetas de texto para los FABs (opcionales) -->
+    <TextView
+        android:id="@+id/tvLabelComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="170dp"
+        android:background="@drawable/rounded_background"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="Comentario"
+        android:fontFamily="@font/grande"
+        android:textColor="@color/white"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/tvLabelFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="240dp"
+        android:background="@drawable/rounded_background"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="Foto"
+        android:fontFamily="@font/grande"
+        android:textColor="@color/white"
+        android:visibility="invisible"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

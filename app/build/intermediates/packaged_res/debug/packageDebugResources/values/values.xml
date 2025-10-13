@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categoria_array">
+        <item>Seleccione una categoría</item>
+        <item>Cierre</item>
+        <item>Apertura</item>
+        <item>Trascurso de Jornada</item>
+        <item>Proceso Mensual</item>
+        <item>Proceso Semanal</item>
+        <item>Otro...</item>
+    </string-array>
+    <string-array name="estado_array">
+        <item>Verificación pendiente</item>
+        <item>No verificado</item>
+        <item>No finalizado</item>
+        <item>En proceso</item>
+        <item>Finalizado</item>
+    </string-array>
+    <string-array name="estados_establecimientos_array">
+        <item>Activo</item>
+        <item>Inactivo</item>
+        <item>En construcción</item>
+        <item>En renovación</item>
+    </string-array>
+    <string-array name="frecuencia_array">
+        <item>Diaria</item>
+        <item>Semanal</item>
+        <item>Mensual</item>
+    </string-array>
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Area Manager</item>
+        <item>Store Manager</item>
+        <item>RRHH</item>
+        <item>Staff</item>
+    </string-array>
+    <string-array name="tipo_proceso_array">
+        <item>APERTURA</item>
+        <item>TRASCURSO DE LA JORNADA</item>
+        <item>CIERRE</item>
+        <item>PROCESO SEMANAL</item>
+        <item>PROCESO MENSUAL</item>
+    </string-array>
+    <string-array name="tipos_establecimientos_array">
+        <item>SMOOY PROPIO</item>
+        <item>SMOOY R</item>
+        <item>SMOOY CREAM</item>
+        <item>SMOOY YOGUR</item>
+    </string-array>
+    <color name="background_color">#F5F5F5</color>
+    <color name="black">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#E6007D</color>
+    <color name="colorPrimaryDark">#E6007D</color>
+    <color name="errorColor">#D32F2F</color>
+    <color name="gray">#CCCCCC</color>
+    <color name="green">#4CAF50</color>
+    <color name="inputBackground">#F5F5F5</color>
+    <color name="orange">#FF9800</color>
+    <color name="primaryColor">#E6007D</color>
+    <color name="primaryDark">#E6007D</color>
+    <color name="primaryLight">#FFC0CB</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <dimen name="standard_145">145dp</dimen>
+    <dimen name="standard_75">75dp</dimen>
+    <item name="avisosTextView" type="id"/>
+    <item name="btnAgregarAviso" type="id"/>
+    <item name="btnAplicarFiltroAvisos" type="id"/>
+    <item name="btnAplicarFiltroProcesos" type="id"/>
+    <item name="btnAuditorias" type="id"/>
+    <item name="btnCambiarPassword" type="id"/>
+    <item name="btnCancelar" type="id"/>
+    <item name="btnCancelarFiltroAvisos" type="id"/>
+    <item name="btnCancelarFiltroProcesos" type="id"/>
+    <item name="btnCrearUsuario" type="id"/>
+    <item name="btnGuardar" type="id"/>
+    <item name="btnLimpiarFiltros" type="id"/>
+    <item name="cambiarPasswordCard" type="id"/>
+    <item name="editTextCorreo" type="id"/>
+    <item name="editTextNombre" type="id"/>
+    <item name="editTextRol" type="id"/>
+    <item name="etDescripcion" type="id"/>
+    <item name="etEstado" type="id"/>
+    <item name="etFechaFin" type="id"/>
+    <item name="etFechaInicio" type="id"/>
+    <item name="etFrecuencia" type="id"/>
+    <item name="etHorario" type="id"/>
+    <item name="etPasswordActual" type="id"/>
+    <item name="etPasswordActualDialog" type="id"/>
+    <item name="etPasswordConfirmar" type="id"/>
+    <item name="etPasswordConfirmarDialog" type="id"/>
+    <item name="etPasswordNueva" type="id"/>
+    <item name="etPasswordNuevaDialog" type="id"/>
+    <item name="etPrenotificacion" type="id"/>
+    <item name="etTipoProceso" type="id"/>
+    <item name="etUbicacion" type="id"/>
+    <item name="etUsuarioActual" type="id"/>
+    <item name="etUsuarioDialog" type="id"/>
+    <item name="ivHabilitado" type="id"/>
+    <item name="layoutBotones" type="id"/>
+    <item name="logoAppCambiar" type="id"/>
+    <item name="mensajeResultado" type="id"/>
+    <item name="procesoDetalleCard" type="id"/>
+    <item name="radioGroupCategoria" type="id"/>
+    <item name="radioGroupEstablecimiento" type="id"/>
+    <item name="radioGroupEstado" type="id"/>
+    <item name="recyclerViewAvisos" type="id"/>
+    <item name="scrollViewCategorias" type="id"/>
+    <item name="scrollViewEstablecimientos" type="id"/>
+    <item name="scrollViewEstados" type="id"/>
+    <item name="spEstablecimiento" type="id"/>
+    <item name="subtituloCambiar" type="id"/>
+    <item name="textInputPasswordActual" type="id"/>
+    <item name="textInputPasswordConfirmar" type="id"/>
+    <item name="textInputPasswordNueva" type="id"/>
+    <item name="textInputUsuarioActual" type="id"/>
+    <item name="textViewTitulo" type="id"/>
+    <item name="toolbarCambiarPassword" type="id"/>
+    <item name="tvDatosCambio" type="id"/>
+    <item name="tvDescripcionBreveLabel" type="id"/>
+    <item name="tvEstado" type="id"/>
+    <item name="tvEstadoLabel" type="id"/>
+    <item name="tvFechaFin" type="id"/>
+    <item name="tvFechaFinLabel" type="id"/>
+    <item name="tvFechaInicio" type="id"/>
+    <item name="tvFechaInicioLabel" type="id"/>
+    <item name="tvFiltroCategoria" type="id"/>
+    <item name="tvFiltroEstablecimiento" type="id"/>
+    <item name="tvFiltroEstado" type="id"/>
+    <item name="tvFrecuencia" type="id"/>
+    <item name="tvFrecuenciaLabel" type="id"/>
+    <item name="tvHorario" type="id"/>
+    <item name="tvHorarioLabel" type="id"/>
+    <item name="tvPrenotificacion" type="id"/>
+    <item name="tvPrenotificacionLabel" type="id"/>
+    <item name="tvSubtitulo" type="id"/>
+    <item name="tvTitulo" type="id"/>
+    <item name="tvTituloAvisos" type="id"/>
+    <item name="tvTituloCambiarPassword" type="id"/>
+    <item name="tvTituloFiltroAvisos" type="id"/>
+    <item name="tvTituloFiltroProcesos" type="id"/>
+    <item name="tvVerificable" type="id"/>
+    <item name="tvVerificableLabel" type="id"/>
+    <string name="app_name">SMÖOY</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="descripcion_hint">Descripción breve</string>
+    <string name="establecimiento_prompt">Selecciona un establecimiento</string>
+    <string name="estado_prompt">Seleccione el estado</string>
+    <string name="fecha_fin_hint">Fecha de fin</string>
+    <string name="fecha_inicio_hint">Fecha de inicio</string>
+    <string name="frecuencia_prompt">Seleccione la frecuencia</string>
+    <string name="guardar">Guardar</string>
+    <string name="horario_hint">Horario</string>
+    <string name="tipo_proceso_prompt">Seleccione el tipo de proceso</string>
+    <string name="ubicacion_hint">Ubicación</string>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+    <style name="Base.Theme.SMOOYpr1" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/primaryDark</item>
+        <item name="colorAccent">@color/primaryDark</item>
+        <item name="android:textColorPrimary">@color/primaryDark</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+    <style name="CustomLogoutButton" parent="CustomMenuButton">
+        <item name="android:backgroundTint">#E53935</item> 
+    </style>
+    <style name="CustomMenuButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconSize">24dp</item>
+        <item name="android:backgroundTint">#7E57C2</item> 
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+    <style name="DetailTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+    <style name="MenuButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryDark</item>
+    </style>
+    <style name="Theme.SMOOYpr1" parent="Base.Theme.SMOOYpr1"/>
+</resources>

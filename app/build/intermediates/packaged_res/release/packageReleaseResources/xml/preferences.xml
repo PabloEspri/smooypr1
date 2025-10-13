@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <CheckBoxPreference
+            android:key="example_switch"
+            android:title="Opción de ejemplo"
+            android:summary="Activa o desactiva algo"/>
+    </PreferenceCategory>
+</PreferenceScreen>

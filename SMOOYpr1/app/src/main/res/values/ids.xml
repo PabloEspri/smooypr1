@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="titulo" type="id" />
+    <item name="textInputUsuario" type="id" />
+    <item name="usuario" type="id" />
+    <item name="mensajeError" type="id" />
+    <item name="textInputContraseña" type="id" />
+    <item name="btnIniciarSesion" type="id" />
+    <item name="contraseña" type="id" />
+</resources>

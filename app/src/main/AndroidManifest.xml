@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+    
+    <!-- Permisos Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Permisos Cámara -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Permisos Almacenamiento para Android 12 y anteriores -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+
+    <!-- Permisos para Android 13 y superiores -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <application
+        android:name="com.smooy.smooypr1.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/smooylogo"
+        android:label="SMÖOY PROCESS"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="ExtraText">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.smooy.smooypr1.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.smooy.smooypr1.util.GlideAuthModule"
+            android:value="AppGlideModule" />
+
+        <activity android:name="com.smooy.smooypr1.MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.smooy.smooypr1.MenuActivity" android:exported="true" />
+        <activity android:name="com.smooy.smooypr1.procesos.AgregarProcesoActivity"/>
+        <activity
+            android:name="com.smooy.smooypr1.procesos.ProcesoDetalleActivity"
+            android:label="Detalle del Proceso" />
+        <activity android:name="com.smooy.smooypr1.procesos.ProcesosActivity" android:exported="false" />
+        <activity android:name="com.smooy.smooypr1.avisos.AvisosActivity"
+            tools:ignore="Instantiatable" />
+        <activity android:name="com.smooy.smooypr1.CambiarPasswordActivity"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name="com.smooy.smooypr1.StaffMenuActivity"
+            android:exported="false" />
+        <activity android:name="com.smooy.smooypr1.avisos.AgregarAvisoActivity" />
+        <activity
+            android:name="com.smooy.smooypr1.avisos.AvisosDetalleActivity"
+            android:exported="false"
+            android:label="Detalle de Aviso">
+        </activity>
+        <activity
+            android:name="com.smooy.smooypr1.usuarios.CrearUsuariosActivity"
+            android:exported="false"
+            android:label="Crear Usuario" />
+        <activity
+            android:name="com.smooy.smooypr1.usuarios.UsuariosActivity"
+            android:exported="false"
+            android:label="Gestión de Usuarios" />
+        <activity
+            android:name="com.smooy.smooypr1.tareas.TareasProcesoActivity"
+            android:exported="false"
+            android:label="Tareas del Proceso"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.smooy.smooypr1.establecimientos.EstablecimientoDetalleActivity"
+            android:exported="false"
+            android:label="Establecimiento detalle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.smooy.smooypr1.tareas.NuevaTareaActivity"
+            android:exported="false"
+            android:label="Nueva Tarea"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.smooy.smooypr1.tareas.TareaDetalleActivity"
+            android:exported="false"
+            android:label="Detalle de Tarea"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.smooy.smooypr1.establecimientos.EstablecimientosActivity" />
+        <activity android:name="com.smooy.smooypr1.establecimientos.CrearEstablecimientoActivity" />
+    </application>
+</manifest>
