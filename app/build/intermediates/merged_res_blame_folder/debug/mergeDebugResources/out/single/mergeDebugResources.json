@@ -1,358 +1,362 @@
 [
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_establecimiento_seleccionado.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_establecimiento_seleccionado.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_menu.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_menu.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_email_export.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_email_export.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_tareas_proceso.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_tareas_proceso.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_staff_menu.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_staff_menu.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_add.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_border.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_border.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_crear_establecimientos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_crear_establecimientos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_agregar_aviso.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_agregar_aviso.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_usuario.png.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/usuario.png"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_agregar_aviso.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_agregar_aviso.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_fullscreen_image.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_fullscreen_image.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_tarea_imagen.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_tarea_imagen.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_cambiar_password.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_cambiar_password.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_main.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_main.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_crear_usuarios.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_crear_usuarios.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/font_grande.ttf.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/font/grande.ttf"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_bg_dark.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_bg_dark.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_crear_establecimientos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_crear_establecimientos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_button.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_button.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_filtrar_avisos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_filtrar_avisos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_pr_apertura.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/pr_apertura.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_add_content.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_add_content.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_filtrar_usuarios.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_filtrar_usuarios.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_circular_button_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/circular_button_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_imagen.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_imagen.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_tarea_imagen.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_tarea_imagen.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_add_comment.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_add_comment.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_filtrar_procesos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_filtrar_procesos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_usuario.png.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\usuario.png"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_photo.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_photo.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_proceso.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_proceso.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_add_content.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_add_content.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_procesos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_procesos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_icono_enviar.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\icono_enviar.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_usuario.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_usuario.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\xml_network_security_config.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\xml\\network_security_config.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_tarea.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_tarea.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_photo.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_photo.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_filtrar_usuarios.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_filtrar_usuarios.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_comment.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_comment.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/xml_preferences.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/xml/preferences.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_aviso_detalle.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_aviso_detalle.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/font_ligero.ttf.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/font/ligero.ttf"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_broadcast.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_broadcast.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_filtrar_establecimientos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_filtrar_establecimientos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_bg_label.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\bg_label.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_placeholder_image.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/placeholder_image.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_comment.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_comment.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_no_habilitado.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_no_habilitado.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_add.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_add.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_establecimiento_seleccionado.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_establecimiento_seleccionado.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_aviso_detalle.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_aviso_detalle.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_circular_button_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\circular_button_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_menu_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/menu_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_pr_apertura.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\pr_apertura.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_nueva_tarea.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_nueva_tarea.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_usuario.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_usuario.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_aviso.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_aviso.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_descripcion.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_descripcion.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\xml_preferences.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\xml\\preferences.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_tarea_detalle.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_tarea_detalle.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\font_grande.ttf.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\font\\grande.ttf"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_comentario.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_comentario.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_procesos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_procesos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_input_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\input_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_password_layout.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/password_layout.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\xml\\file_paths.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_border_light.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_border_light.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_title_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\title_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/xml_network_security_config.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/xml/network_security_config.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_border.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_border.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/xml_backup_rules.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_imagen.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_imagen.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_fullscreen_image.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_fullscreen_image.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_cambiar_password.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_cambiar_password.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_pr_mensual.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\pr_mensual.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_pr_cerrar.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/pr_cerrar.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_fondo.png.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\fondo.png"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_habilitado.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_habilitado.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_password_layout.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\password_layout.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_button_primary.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/button_primary.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_border_light.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_border_light.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_pr_cerrar.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\pr_cerrar.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_crear_usuarios.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_crear_usuarios.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_avisos_layout.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\avisos_layout.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_fondo.png.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/fondo.png"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_button_primary.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\button_primary.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_no_habilitado.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_no_habilitado.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_circle_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\circle_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_menu.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_menu.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_menu_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\menu_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_error_image.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/error_image.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/xml_data_extraction_rules.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_proceso.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_proceso.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\font_ligero.ttf.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\font\\ligero.ttf"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_edit_text_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/edit_text_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_establecimiento.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_establecimiento.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_launcher_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_agregar_proceso.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_agregar_proceso.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_usuarios.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_usuarios.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_placeholder_image.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\placeholder_image.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_icono_enviar.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/icono_enviar.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_error_image.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\error_image.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_establecimiento_detalle.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_establecimiento_detalle.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_item_establecimiento.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/item_establecimiento.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_habilitado.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_habilitado.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_tarea_detalle.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_tarea_detalle.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_camera.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_camera.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_add_comment.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_add_comment.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_comentario.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_comentario.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_descripcion.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_descripcion.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_circle_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/circle_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_smooylogo.png.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\smooylogo.png"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_bg_dark.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_bg_dark.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_dialog_filtrar_procesos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/dialog_filtrar_procesos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_corners.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_corners.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_input_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/input_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_filtrar_establecimientos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_filtrar_establecimientos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_proceso_detalle.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_proceso_detalle.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_proceso_detalle.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_proceso_detalle.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_bg.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_bg.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_rounded_bg.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\rounded_bg.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_agregar_proceso.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_agregar_proceso.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_filtrar_avisos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_filtrar_avisos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_button.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_button.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_nueva_tarea.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_nueva_tarea.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_ic_broadcast.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/ic_broadcast.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\ic_camera.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_bg_label.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/bg_label.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_tareas_proceso.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_tareas_proceso.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_rounded_corners.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/rounded_corners.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_tarea.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_tarea.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_usuarios.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_usuarios.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_avisos_layout.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/avisos_layout.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\drawable_edit_text_background.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\drawable\\edit_text_background.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_activity_establecimientos.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/activity_establecimientos.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_establecimientos.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_establecimientos.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_title_background.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/title_background.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_staff_menu.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_staff_menu.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/layout_pr_mensual.xml.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/layout/pr_mensual.xml"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_dialog_email_export.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\dialog_email_export.xml"
     },
     {
-        "merged": "com.smooy.smooypr1.app-debug-41:/drawable_smooylogo.png.flat",
-        "source": "com.smooy.smooypr1.app-main-43:/drawable/smooylogo.png"
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_activity_establecimiento_detalle.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\activity_establecimiento_detalle.xml"
     },
     {
         "merged": "com.smooy.smooypr1.app-debug-41:/xml_file_paths.xml.flat",
         "source": "com.smooy.smooypr1.app-main-43:/xml/file_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-debug-41:\\layout_item_aviso.xml.flat",
+        "source": "C:\\Users\\smooy\\.gradle\\daemon\\8.7\\com.smooy.smooypr1.app-main-43:\\layout\\item_aviso.xml"
     }
 ]
