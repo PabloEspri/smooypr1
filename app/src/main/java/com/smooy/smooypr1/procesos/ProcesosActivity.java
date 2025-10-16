@@ -343,8 +343,9 @@ public class ProcesosActivity extends AppCompatActivity {
     private void actualizarDetalleProcesoSiEsVisible(int procesoId) {
         Log.d(TAG, "📣 Enviando broadcast para actualizar detalle del proceso ID: " + procesoId);
 
+        //Si falla cambiar smooy-->example
         // Crear un intent con la acción personalizada
-        Intent intent = new Intent("com.example.smooypr1.PROCESO_ACTUALIZADO");
+        Intent intent = new Intent("com.smooy.smooypr1.PROCESO_ACTUALIZADO");
 
         // Agregar datos al intent
         intent.putExtra("PROCESO_ID", procesoId);

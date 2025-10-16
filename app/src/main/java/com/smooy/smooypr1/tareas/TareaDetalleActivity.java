@@ -639,7 +639,7 @@ public class TareaDetalleActivity extends AppCompatActivity {
                     
                     if (photoFile != null) {
                         Uri photoURI = FileProvider.getUriForFile(this,
-                                "com.example.smooypr1.fileprovider",
+                                "com.smooy.smooypr1.fileprovider",
                                 photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(takePictureIntent, REQUEST_CAMERA);

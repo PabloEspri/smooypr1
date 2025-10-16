@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.smooypr1", appContext.getPackageName());
+        assertEquals("com.smooy.smooypr1", appContext.getPackageName());
     }
 }
