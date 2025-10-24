@@ -902,7 +902,7 @@ def agregar_proceso(proceso: Proceso, request: Request):
             proceso.fecha_fin,
             proceso.frecuencia,
             proceso.horario,
-            proceso.estado or "No verificado"  # Valor por defecto
+            proceso.estado or "Pendiente"  # Valor por defecto
         )
         
         # Ejecutar consulta
@@ -954,7 +954,7 @@ async def agregar_proceso_raw(request: Request):
             fecha_fin = datos_json.get("fechaFin")
             frecuencia = datos_json.get("frecuencia")
             horario = datos_json.get("horario")
-            estado = datos_json.get("estado", "No verificado")
+            estado = datos_json.get("estado", "Pendiente")
             
             query = """
                 INSERT INTO procesos2 (tipo_proceso, descripcion, establecimiento_id, usuario_id, fecha_inicio, fecha_fin, 
@@ -4412,14 +4412,14 @@ def verificar_completado(proceso_id: int):
             return {
                 "success": False, 
                 "message": "No hay tareas para este proceso",
-                "estado": "Verificación pendiente"
+                "estado": "Pendiente"
             }
             
         total_tareas = resultado["total_tareas"]
         tareas_completadas = resultado["tareas_completadas"]
         
         # Determinar el nuevo estado según si todas las tareas están completadas
-        nuevo_estado = "Completado" if total_tareas == tareas_completadas else "Verificación pendiente"
+        nuevo_estado = "Verificación pendiente" if total_tareas == tareas_completadas else "Pendiente"
         
         # Actualizar el estado del proceso - FIJADO: asegurar que actualizamos procesos2
         query_update = """
@@ -4750,7 +4750,7 @@ def actualizar_estado_proceso(proceso_id: int, datos: dict = Body(...)):
         nuevo_estado = datos["estado"]
         
         # Estados válidos utilizados en el resto de la aplicación
-        estados_validos = ["No verificado", "Verificación pendiente", "Verificado", "Completado", "En Proceso"]
+        estados_validos = ["Pendiente", "Verificación pendiente", "Verificado", "En Proceso"]
         if nuevo_estado not in estados_validos:
             raise HTTPException(
                 status_code=400, 
