@@ -4166,7 +4166,7 @@ async def generar_procesos_diarios_v2():
                     "horario": horarios[tipo],
                     "fecha_inicio": fecha_actual,
                     "fecha_fin": fecha_actual,
-                    "estado": "Verificación pendiente",
+                    "estado": "Pendiente",
                     "ubicacion": establecimiento["nombre"],
                     "establecimiento_id": establecimiento["id"],
                     "usuario_id": None  # Sistema automático
@@ -4231,7 +4231,7 @@ async def generar_procesos_semanales_v2():
                 "horario": hora_actual,
                 "fecha_inicio": fecha_actual,
                 "fecha_fin": fecha_fin,
-                "estado": "Verificación pendiente",
+                "estado": "Pendiente",
                 "ubicacion": establecimiento["nombre"],
                 "establecimiento_id": establecimiento["id"],
                 "usuario_id": None
@@ -4296,7 +4296,7 @@ async def generar_procesos_mensuales_v2():
                 "horario": hora_actual,
                 "fecha_inicio": fecha_actual,
                 "fecha_fin": fecha_fin,
-                "estado": "Verificación pendiente",
+                "estado": "Pendiente",
                 "ubicacion": establecimiento["nombre"],
                 "establecimiento_id": establecimiento["id"],
                 "usuario_id": None
@@ -4415,14 +4415,14 @@ def verificar_completado(proceso_id: int):
             return {
                 "success": False, 
                 "message": "No hay tareas para este proceso",
-                "estado": "Verificación pendiente"
+                "estado": "Pendiente"
             }
             
         total_tareas = resultado["total_tareas"]
         tareas_completadas = resultado["tareas_completadas"]
         
         # Determinar el nuevo estado según si todas las tareas están completadas
-        nuevo_estado = "Completado" if total_tareas == tareas_completadas else "Verificación pendiente"
+        nuevo_estado = "Verificación pendiente" if total_tareas == tareas_completadas else "Pendiente"
         
         # Actualizar el estado del proceso
         query_update = """
@@ -4752,7 +4752,7 @@ def actualizar_estado_proceso(proceso_id: int, datos: dict):
         nuevo_estado = datos["estado"]
         
         # Validar que el estado sea uno válido
-        estados_validos = ["pendiente", "en_proceso", "completado", "cancelado"]
+        estados_validos = ["pendiente", "en_proceso", "completado", "cancelado", "verificacion_pendiente"]
         if nuevo_estado not in estados_validos:
             return {"error": f"Estado no válido. Debe ser uno de: {', '.join(estados_validos)}"}, 400
         
