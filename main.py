@@ -4726,7 +4726,7 @@ def verificar_completado(proceso_id: int):
             
             # Opcionalmente, actualizar el estado del proceso
             cursor.execute("""
-                UPDATE procesos SET estado = 'completado', fecha_actualizacion = NOW()
+                UPDATE procesos SET estado = 'Verificación pendiente', fecha_actualizacion = NOW()
                 WHERE id = %s
             """, (proceso_id,))
             conn.commit()
