@@ -4472,6 +4472,81 @@ def verificar_completado(proceso_id: int):
         if conexion and conexion.is_connected():
             conexion.close()
 
+@app.put("/procesos/{proceso_id}/verificar-definitivo")
+def verificar_definitivo(proceso_id: int, usuario_id: int = Body(..., embed=True)):
+    """
+    Marca un proceso como 'Verificado' SOLO si ya está en 'Verificación pendiente'.
+    Además guarda quién lo verificó.
+    usuario_id viene en el body JSON: { "usuario_id": 123 }
+    """
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    
+    cursor = None
+    try:
+        cursor = conexion.cursor(dictionary=True)
+
+        # 1. Obtener estado actual del proceso
+        cursor.execute("""
+            SELECT estado
+            FROM procesos2
+            WHERE id = %s
+        """, (proceso_id,))
+        fila = cursor.fetchone()
+
+        if not fila:
+            raise HTTPException(status_code=404, detail="Proceso no encontrado")
+
+        estado_actual = fila["estado"]
+
+        # 2. Comprobar que esté listo para verificar
+        # Aceptamos acentos y variaciones
+        estado_normalizado = estado_actual.strip().lower().replace("ó", "o")
+        if estado_normalizado != "verificacion pendiente":
+            # No está listo → NO dejamos verificar
+            return {
+                "success": False,
+                "message": "No se puede verificar este proceso. Aún faltan tareas por completar.",
+                "estado_actual": estado_actual
+            }
+
+        # 3. Marcar como Verificado y guardar el verificador
+        cursor.execute("""
+            UPDATE procesos2
+            SET estado = 'Verificado',
+                id_usuario_verificador = %s
+            WHERE id = %s
+        """, (usuario_id, proceso_id))
+        conexion.commit()
+
+        # 4. Volver a leer ya con LEFT JOIN para traer nombre del usuario
+        cursor.execute("""
+            SELECT p.*,
+                   COALESCE(CONCAT(u.Nombre, ' ', u.apellido), '') AS nombre_usuario_verificador
+            FROM procesos2 p
+            LEFT JOIN usuarios u
+                ON p.id_usuario_verificador = u.ID
+            WHERE p.id = %s
+        """, (proceso_id,))
+        proceso_actualizado = cursor.fetchone()
+
+        return {
+            "success": True,
+            "message": "Proceso verificado correctamente",
+            "proceso": proceso_actualizado
+        }
+
+    except Error as e:
+        print(f"Error al verificar proceso: {e}")
+        raise HTTPException(status_code=500, detail="Error interno al verificar el proceso")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
+
 @app.delete("/procesos/{proceso_id}/comentarios/{comentario_id}")
 async def eliminar_comentario_proceso(proceso_id: int, comentario_id: int, request: Request):
     """
