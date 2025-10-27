@@ -2967,7 +2967,7 @@ async def obtener_tareas_proceso(proceso_id: int = Path(...)):
             
         cursor = conexion.cursor(dictionary=True)
         query = """
-            SELECT t.*, u.Nombre as nombre_usuario_completado, u.usuario as usuario_completado 
+            SELECT t.*, CONCAT(u.Nombre, ' ', u.apellido) as nombre_usuario_completado, u.usuario as usuario_completado 
             FROM proceso_tareas t
             LEFT JOIN usuarios u ON t.usuario_completado_id = u.ID
             WHERE t.proceso_id = %s
