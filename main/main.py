@@ -755,7 +755,7 @@ def obtener_proceso_por_id(id: int):
         cursor = conexion.cursor(dictionary=True)
         
         # Consulta SQL para obtener el proceso por ID
-        cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as usuario " \
+        cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
         "FROM procesos2 p LEFT JOIN usuarios u  " \
         "ON p.id_usuario_verificador = u.ID " \
         "WHERE id = %s", (id,))
