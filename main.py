@@ -3105,7 +3105,7 @@ async def obtener_tarea_por_id(id: int = Path(...), current_user: Usuario = Depe
         
         # Consultar la tarea con el ID proporcionado
         query = """
-            SELECT pt.*, u.Nombre as nombre_usuario_completado
+            SELECT pt.*, CONCAT(u.Nombre, ' ', u.apellido) as nombre_usuario_completado
             FROM proceso_tareas pt
             LEFT JOIN usuarios u ON pt.usuario_completado_id = u.ID
             WHERE pt.id = %s
