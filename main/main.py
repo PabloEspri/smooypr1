@@ -1,4 +1,6 @@
-print ("El server está arrancando...")
+print("")
+print("\033[95m ======================= El server está arrancando ======================= \033[0m")
+print("")
 import secrets
 from fastapi import FastAPI, HTTPException, Path, Query, File, Form, UploadFile, Depends, Header, Security, Request, Body
 from fastapi.responses import FileResponse, JSONResponse
@@ -25,10 +27,24 @@ from typing import Optional
 import uuid
 from passlib.context import CryptContext
 
+app= FastAPI()
+origins = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://212.227.147.252:5500"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type", "Accept"],
+)
+
 # Configuración JWT - USAR EXACTAMENTE ESTOS VALORES
 SECRET_KEY = "tu_clave_secreta_aqui"  # IMPORTANTE: Usa EXACTAMENTE esta clave
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1  # 24 horas
+ACCESS_TOKEN_EXPIRE_MINUTES = 525600
 
 # Configuración de seguridad para contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -90,10 +106,10 @@ ESTADOS_AVISOS = [
 def conectar_db():
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            database='smooydb',  # Nombre correcto según archivo SQL
-            user='root',         # Usuario por defecto en XAMPP/WAMP
-            password='',         # Contraseña vacía por defecto
+            host="127.0.0.1",
+            database='smooydb',
+            user='root',
+            password='W$x*$r2!QE',
             port=3306
         )
         if connection.is_connected():
@@ -115,17 +131,6 @@ def verificar_tablas():
     cursor = None
     try:
         cursor = conexion.cursor()
-        
-        # Verificar tabla Establecimientos
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Establecimientos (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nombre VARCHAR(255) NOT NULL,
-            direccion VARCHAR(255),
-            tipo VARCHAR(100),
-            estado VARCHAR(50)
-        )
-        """)
         
         # Verificar tabla proceso_comentarios
         cursor.execute("""
@@ -162,7 +167,7 @@ def verificar_tablas():
             print("Añadiendo columna fecha_subida a proceso_imagenes")
             cursor.execute("ALTER TABLE proceso_imagenes ADD COLUMN fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP")
         
-        # Verificar tabla avisos con el campo estado
+        # Verificar tabla avisos con el campo estado y proceso_id
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS avisos (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -172,7 +177,8 @@ def verificar_tablas():
             establecimiento_id INT NOT NULL,
             usuario_id INT NOT NULL,
             estado VARCHAR(50) DEFAULT 'Pendiente',
-            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+            proceso_id INT NULL
         )
         """)
         
@@ -181,6 +187,12 @@ def verificar_tablas():
         if not cursor.fetchone():
             print("Añadiendo columna estado a avisos")
             cursor.execute("ALTER TABLE avisos ADD COLUMN estado VARCHAR(50) DEFAULT 'Pendiente'")
+        
+        # Verificar si existe la columna proceso_id en avisos
+        cursor.execute("SHOW COLUMNS FROM avisos LIKE 'proceso_id'")
+        if not cursor.fetchone():
+            print("Añadiendo columna proceso_id a avisos")
+            cursor.execute("ALTER TABLE avisos ADD COLUMN proceso_id INT NULL")
         
         conexion.commit()
         print("Tablas verificadas y actualizadas correctamente")
@@ -209,15 +221,6 @@ app = FastAPI()
 # Ejecutar verificación de tablas al iniciar
 verificar_tablas()
 
-# Configurar CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Para desarrollo, en producción especifica dominios
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Primero, definimos correctamente las rutas públicas
 PUBLIC_PATHS = [
     "/login", 
@@ -227,7 +230,8 @@ PUBLIC_PATHS = [
     "/docs",           # Documentación Swagger
     "/openapi.json",   # Esquema OpenAPI para Swagger
     "/redoc",          # Documentación ReDoc
-    "/static",         # Archivos estáticos
+    "/static",  
+                  # Archivos estáticos
     # Añadir estas rutas para pruebas iniciales (eliminar en producción)
     "/procesos",       # Ruta principal de procesos
     "/avisos",         # Ruta principal de avisos 
@@ -340,6 +344,7 @@ class AvisoCreate(BaseModel):
     descripcion: str
     establecimientoId: int = Field(alias="establecimientoId")
     usuarioId: int = Field(alias="usuarioId")
+    procesoId: Optional[int] = Field(None, alias="procesoId")  # Campo añadido para asociar con proceso
 
     class Config:
         allow_population_by_field_name = True
@@ -696,11 +701,16 @@ def obtener_procesos(establecimiento_id: int = None):
         # Si tenemos un ID de establecimiento, filtrar por él
         if establecimiento_id is not None:
             print(f"Obteniendo procesos para establecimiento: {establecimiento_id}")
-            cursor.execute("SELECT * FROM procesos2 WHERE establecimiento_id = %s", (establecimiento_id,))
+            cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
+            "FROM procesos2 p LEFT JOIN usuarios u " \
+            "ON p.id_usuario_verificador = u.ID " \
+            "WHERE establecimiento_id = %s", (establecimiento_id,))
         else:
             # Si no, obtener todos los procesos
             # print("Obteniendo todos los procesos")
-            cursor.execute("SELECT * FROM procesos2")
+            cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
+            "FROM procesos2 p LEFT JOIN usuarios u " \
+            "ON p.id_usuario_verificador = u.ID")
         
         procesos = cursor.fetchall()
         
@@ -745,7 +755,10 @@ def obtener_proceso_por_id(id: int):
         cursor = conexion.cursor(dictionary=True)
         
         # Consulta SQL para obtener el proceso por ID
-        cursor.execute("SELECT * FROM procesos2 WHERE id = %s", (id,))
+        cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as usuario " \
+        "FROM procesos2 p LEFT JOIN usuarios u  " \
+        "ON p.id_usuario_verificador = u.ID " \
+        "WHERE id = %s", (id,))
         proceso = cursor.fetchone()
         
         if not proceso:
@@ -788,7 +801,7 @@ def obtener_establecimientos():
         cursor = conexion.cursor(dictionary=True)
         
         # Verificar si la tabla existe (probando con diferentes casos)
-        cursor.execute("SHOW TABLES LIKE 'Establecimientos'")
+        cursor.execute("SHOW TABLES LIKE 'establecimientos'")
         if not cursor.fetchone():
             # Intentar con minúsculas si no encuentra la tabla
             cursor.execute("SHOW TABLES LIKE 'establecimientos'")
@@ -798,7 +811,7 @@ def obtener_establecimientos():
             else:
                 table_name = "establecimientos"
         else:
-            table_name = "Establecimientos"
+            table_name = "establecimientos"
         
         # Consultar los establecimientos
         cursor.execute(f"SELECT * FROM {table_name}")
@@ -897,7 +910,7 @@ def agregar_proceso(proceso: Proceso, request: Request):
             proceso.fecha_fin,
             proceso.frecuencia,
             proceso.horario,
-            proceso.estado or "No verificado"  # Valor por defecto
+            proceso.estado or "Pendiente"  # Valor por defecto
         )
         
         # Ejecutar consulta
@@ -949,7 +962,7 @@ async def agregar_proceso_raw(request: Request):
             fecha_fin = datos_json.get("fechaFin")
             frecuencia = datos_json.get("frecuencia")
             horario = datos_json.get("horario")
-            estado = datos_json.get("estado", "No verificado")
+            estado = datos_json.get("estado", "Pendiente")
             
             query = """
                 INSERT INTO procesos2 (tipo_proceso, descripcion, establecimiento_id, usuario_id, fecha_inicio, fecha_fin, 
@@ -1479,15 +1492,15 @@ def crear_aviso(aviso: AvisoCreate):
         
         # Consulta SQL para insertar el nuevo aviso
         query = """
-            INSERT INTO avisos (nombre, categoria, descripcion, establecimiento_id, usuario_id, fecha_creacion, estado)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO avisos (nombre, categoria, descripcion, establecimiento_id, usuario_id, fecha_creacion, estado, proceso_id)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
         
         # Crear la fecha actual
         fecha_actual = datetime.now()
         fecha_str = fecha_actual.strftime('%Y-%m-%d %H:%M:%S')
         
-        # Valores para la consulta (incluyendo estado por defecto)
+        # Valores para la consulta (incluyendo estado por defecto y proceso_id)
         valores = (
             aviso.nombre, 
             aviso.categoria, 
@@ -1495,7 +1508,8 @@ def crear_aviso(aviso: AvisoCreate):
             aviso.establecimientoId,
             aviso.usuarioId,
             fecha_str,
-            "Pendiente"  # Estado por defecto
+            "Pendiente",  # Estado por defecto
+            aviso.procesoId  # Nuevo campo proceso_id
         )
         
         # Debug - imprimir query y valores
@@ -1580,7 +1594,7 @@ def actualizar_aviso(aviso_id: int, aviso_update: AvisoUpdate):
         # Verificar si el estado es válido
         if aviso_update.estado is not None:
             if aviso_update.estado not in ESTADOS_AVISOS:
-                raise HTTPException(status_code=400, detail=f"Estado inválido. Opciones válidas: {', '.join(ESTADOS_AVISOS)}")
+                raise HTTPException(status_code=400, detail=f"Estado inválido. Opciones válidos: {', '.join(ESTADOS_AVISOS)}")
             campos_actualizados.append("estado = %s")
             valores.append(aviso_update.estado)
         
@@ -1601,7 +1615,7 @@ def actualizar_aviso(aviso_id: int, aviso_update: AvisoUpdate):
         cursor.execute("""
             SELECT a.*, e.nombre as nombreEstablecimiento, u.Nombre as nombreUsuario 
             FROM avisos a
-            LEFT JOIN Establecimientos e ON a.establecimiento_id = e.id
+            LEFT JOIN establecimientos e ON a.establecimiento_id = e.id
             LEFT JOIN usuarios u ON a.usuario_id = u.ID
             WHERE a.id = %s
         """, (aviso_id,))
@@ -1696,7 +1710,7 @@ def obtener_avisos(establecimiento_id: Optional[int] = Query(None)):
             query = """
                 SELECT a.*, e.nombre AS nombre_establecimiento, u.Nombre AS nombre_usuario, u.apellido
                 FROM avisos a
-                LEFT JOIN Establecimientos e ON a.establecimiento_id = e.id
+                LEFT JOIN establecimientos e ON a.establecimiento_id = e.id
                 LEFT JOIN usuarios u ON a.usuario_id = u.ID
                 WHERE a.establecimiento_id = %s
                 ORDER BY a.fecha_creacion DESC
@@ -1706,7 +1720,7 @@ def obtener_avisos(establecimiento_id: Optional[int] = Query(None)):
             query = """
                 SELECT a.*, e.nombre AS nombre_establecimiento, u.Nombre AS nombre_usuario, u.apellido
                 FROM avisos a
-                LEFT JOIN Establecimientos e ON a.establecimiento_id = e.id
+                LEFT JOIN establecimientos e ON a.establecimiento_id = e.id
                 LEFT JOIN usuarios u ON a.usuario_id = u.ID
                 ORDER BY a.fecha_creacion DESC
             """
@@ -2078,7 +2092,7 @@ def crear_usuario(usuario: UsuarioCreate, current_user: TokenData = Depends(get_
         # Si se proporcionó un establecimiento_id, asignar al usuario a ese establecimiento
         if usuario.establecimiento_id:
             # Verificar que el establecimiento existe
-            cursor.execute("SELECT * FROM Establecimientos WHERE id = %s", (usuario.establecimiento_id,))
+            cursor.execute("SELECT * FROM establecimientos WHERE id = %s", (usuario.establecimiento_id,))
             if not cursor.fetchone():
                 raise HTTPException(status_code=404, 
                                    detail=f"No existe establecimiento con ID {usuario.establecimiento_id}")
@@ -2449,7 +2463,7 @@ from typing import Optional
 # Configuración de JWT
 SECRET_KEY = "tu_clave_secreta_compleja_aqui"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 horas
+ACCESS_TOKEN_EXPIRE_MINUTES = 525600  # 24 horas
 
 # Configuración de bcrypt para hashing de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -2635,10 +2649,10 @@ def get_password_hash(password):
 def conectar_db():
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            database='smooydb',  # Nombre correcto según archivo SQL
-            user='root',         # Usuario por defecto en XAMPP/WAMP
-            password='',         # Contraseña vacía por defecto
+            host="127.0.0.1",
+            database='smooydb',
+            user='root',
+            password='W$x*$r2!QE',
             port=3306
         )
         if connection.is_connected():
@@ -2742,13 +2756,6 @@ async def subir_imagen_aviso(
         }
     
     except Error as e:
-        print(f"Error al subir imagen: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al guardar en base de datos: {e}")
-    except Exception as e:
-        print(f"Error al procesar la imagen: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al procesar la imagen: {e}")
-    
-    finally:
         if cursor:
             cursor.close()
         if conexion and conexion.is_connected():
@@ -2800,7 +2807,7 @@ async def crear_usuario(usuario_data: dict):
         if "establecimientos" in usuario_data and isinstance(usuario_data["establecimientos"], list):
             for establecimiento_id in usuario_data["establecimientos"]:
                 # Verificar que el establecimiento existe
-                cursor.execute("SELECT id FROM Establecimientos WHERE id = %s", (establecimiento_id,))
+                cursor.execute("SELECT id FROM establecimientos WHERE id = %s", (establecimiento_id,))
                 if cursor.fetchone():
                     # Crear relación usuario-establecimiento
                     cursor.execute(
@@ -2968,7 +2975,7 @@ async def obtener_tareas_proceso(proceso_id: int = Path(...)):
             
         cursor = conexion.cursor(dictionary=True)
         query = """
-            SELECT t.*, u.Nombre as nombre_usuario_completado, u.usuario as usuario_completado 
+            SELECT t.*, CONCAT(u.Nombre, ' ', u.apellido) as nombre_usuario_completado, u.usuario as usuario_completado 
             FROM proceso_tareas t
             LEFT JOIN usuarios u ON t.usuario_completado_id = u.ID
             WHERE t.proceso_id = %s
@@ -3060,7 +3067,7 @@ async def crear_establecimiento(establecimiento_data: Dict[str, Any] = Body(...)
         estado = establecimiento_data.get("estado", "activo")
         
         query = """
-            INSERT INTO Establecimientos (nombre, direccion, tipo, estado)
+            INSERT INTO establecimientos (nombre, direccion, tipo, estado)
             VALUES (%s, %s, %s, %s)
         """
         
@@ -3106,7 +3113,7 @@ async def obtener_tarea_por_id(id: int = Path(...), current_user: Usuario = Depe
         
         # Consultar la tarea con el ID proporcionado
         query = """
-            SELECT pt.*, u.Nombre as nombre_usuario_completado
+            SELECT pt.*, CONCAT(u.Nombre, ' ', u.apellido) as nombre_usuario_completado
             FROM proceso_tareas pt
             LEFT JOIN usuarios u ON pt.usuario_completado_id = u.ID
             WHERE pt.id = %s
@@ -3323,40 +3330,43 @@ async def generar_tareas_proceso(proceso_id: int = Path(...)):
         # Definir tareas según el tipo de proceso
         if tipo_proceso == "APERTURA":
             tareas = [
-                {"nombre": "Desactivar alarma", "descripcion": "Desactivar sistema de alarma al llegar", "orden": 1},
-                {"nombre": "Encender luces", "descripcion": "Encender todas las luces del local", "orden": 2},
-                {"nombre": "Verificar equipos", "descripcion": "Comprobar que todos los equipos funcionan correctamente", "orden": 3},
-                {"nombre": "Preparar caja", "descripcion": "Preparar la caja registradora con cambio", "orden": 4},
-                {"nombre": "Limpieza inicial", "descripcion": "Realizar limpieza rápida del área de atención", "orden": 5}
+                {"nombre": "MÁQUINA YOGUR Y DELIVERY", "descripcion": "Se deben realizar los siguientes pasos para el correcto funcionamiento de la maquinaria. \n-Puesta en marcha de la maquinaria (indicar en comentarios si el funcionamiento es OK).\n-Limpieza de la maquinaria (2 FOTOS una de las cubas limpias y otra del frontal de las máquinas).\n-Probar el producto (indicar en comentarios si el producto es OK).\nLAS MÁQUINAS SE LIMPIAN EN DÍAS ALTERNOS DE LUNES A VIERNES.\n-Aportar 1 FOTO de tablets y datáfonos de Delivery encendidos (Glovo, Just Eat, y Uber Eats) y revisad que los productos que se ofertan en cada Tablet son los correctos modificándolo si hay alguno que no tenéis.", "orden": 1},
+                {"nombre": "MESA TOPPING Y FREEZERS", "descripcion": "Se debe dejar la mesa de los TOPPINGS perfecta para la entrada de los clientes, y además se debe realizar el TRITURADO y la LIMPIEZA de los granizados. Adjuntar fotos: \n-MESA TOPPING (FOTO de todos los toppings completos) \n-MOSTRADOR (FOTO desde el frontal, como ve el cliente el mostrador) \n-GRANIZADOS (FOTO con los recipientes de granizados una vez pasado el brazo triturador). Se debe dejar previamente atemperado el producto para evitar introducir el brazo triturador en el bloque granizado. Se debe sacar el cacillo de servicio por la noche para evitar que se quede congelado dentro del granizado. \n-EXPOSITOR CREAM (FOTO del expositor cream limpio y lleno, si teneis cream en vuestro espacio)", "orden": 2},
+                {"nombre": "TEMPERATURAS", "descripcion": "Debemos hacer el seguimiento de las temperaturas:\nSe debe adjuntar una imágen de la HOJA DEL REGISTRO:\n-FOTO de la hoja de registro de la temperaturas una vez completada.", "orden": 3},
+                {"nombre": "UNIFORME", "descripcion": "Llevar uniforme completo y limpio.\nAdjuntar FOTO sin cara del uniforme completo (Gorra o bandana, camiseta, delantales, pantalón, y calzado).", "orden": 4}
             ]
         elif tipo_proceso == "CIERRE":
             tareas = [
-                {"nombre": "Cerrar caja", "descripcion": "Realizar cierre y conteo de caja", "orden": 1},
-                {"nombre": "Limpieza de cierre", "descripcion": "Limpieza general del local", "orden": 2},
-                {"nombre": "Apagar equipos", "descripcion": "Apagar todos los equipos electrónicos", "orden": 3},
-                {"nombre": "Apagar luces", "descripcion": "Apagar todas las luces", "orden": 4},
-                {"nombre": "Activar alarma", "descripcion": "Activar sistema de alarma al salir", "orden": 5}
+                {"nombre": "MODO NOCHE MÁQUINAS YOGUR", "descripcion": "Poner máquinas de yogur en modo noche, se deben poner las máquinas de yogur en modo noche, realizando una FOTO de las temperaturas.", "orden": 1},
+                {"nombre": "GUARDAR + TAPAR TOPPING", "descripcion": "Guardar topping frutas en el frigo. Tapar toppings del mostrador. Cerrar las bolsas de topping indicando fecha de apertura. Se deben adjuntar las imágenes - FOTO topping guardado.", "orden": 2},
+                {"nombre": "LIMPIEZA MOSTRADOR", "descripcion": "Se debe hacer una limpieza del mostrador. Adjuntar imágenes de la zona en perfecto estado: - FOTO del mostrador, cubetas, y vitrinas del cristal limpias.", "orden": 3},
+                {"nombre": "LIMPIEZA GENERAL", "descripcion": "Se debe efectuar una limpieza de maquinarias de: - Maquinaria Sweet - Granizadoras - Utensilios de cocina - Mobiliario - Local - WC. Se deben adjuntar las siguientes imágenes: FOTO maquinaria sweet, FOTO granizadoras, FOTO utensilios de cocina, FOTO mobiliario, FOTO local, FOTO WC.", "orden": 4},
+                {"nombre": "CIERRE CAJA", "descripcion": "Se debe efectuar el cierre de la caja. Se debe realizar \"Z ciega\" en el TPV. Adjuntar FOTO sobre el cierre completado.", "orden": 5}
             ]
         elif tipo_proceso == "TRASCURSO DE JORNADA" or tipo_proceso == "TRASCURSO DE LA JORNADA":
             tareas = [
-                {"nombre": "Revisión de inventario", "descripcion": "Comprobar niveles de inventario", "orden": 1},
-                {"nombre": "Limpieza de áreas comunes", "descripcion": "Mantener áreas comunes limpias", "orden": 2},
-                {"nombre": "Control de temperatura", "descripcion": "Verificar temperaturas de equipos", "orden": 3}
+                {"nombre": "PREPARACIÓN PRODUCTO", "descripcion": "Se debe preparar y completar las hojas de registro con los lotes empleados:\n-HELADO\n-GRANIZADO\n-SWEET\n-CREAM (sólo establecimientos CREAM).\nAdjuntar imágenes de las hojas de los lotes completados\n-HELADO\n-GRANIZADO\n-SWEET\n-CREAM", "orden": 1},
+                {"nombre": "LIMPIEZA WC (16:00)", "descripcion": "Realizar revisión y limpieza del WC, reponer papel y jabón en caso de que falte\nAdjuntar FOTO del estado del WC y de la hoja de registro de limpeza de WC completada.", "orden": 2},
+                {"nombre": "LIMPIEZA WC (20:00)", "descripcion": "Realizar revisión y limpieza del WC, reponer papel y jabón en caso de que falte\nAdjuntar FOTO del estado del WC y de la hoja de registro de limpeza de WC completada.", "orden": 3},
+                {"nombre": "UNIFORME", "descripcion": "Llevar uniforme completo y limpio.\nAdjuntar FOTO sin cara del uniforme completo (Gorra o bandana, camiseta, delantales, pantalón, y calzado).", "orden": 4},
+                {"nombre": "COMPROBACIÓN FUNCIONAMIENTO BOMBAS MÁQUINAS HELADO", "descripcion": "Se debe comprobar que el funcionamiento de las bombas de las máquinas heladoras es correcto.\nINCLUIR FOTO DE LAS BOMBAS EN FUNCIONAMIENTO.", "orden": 5}
             ]
         elif tipo_proceso == "PROCESO SEMANAL":
             tareas = [
-                {"nombre": "Revisión semanal de stock", "descripcion": "Realizar inventario semanal completo", "orden": 1},
-                {"nombre": "Limpieza profunda", "descripcion": "Realizar limpieza profunda de todas las áreas", "orden": 2},
-                {"nombre": "Mantenimiento de equipos", "descripcion": "Verificar estado y funcionamiento de todos los equipos", "orden": 3},
-                {"nombre": "Reunión de equipo", "descripcion": "Realizar reunión con el equipo para revisar la semana", "orden": 4}
+                {"nombre": "Cuadre horarios", "descripcion": "El STORE MANAGER debe realizar cuadre de horarios personal para la próxima semana desde el tpv entrar a la aplicación Evolbe, y en el apartado de turnos incorporar la previsión semanal de turnos. Adjuntar imagen del cuadre de horarios y días. Cualquier duda o consulta ponerse en contacto con José Guillen, 696788057", "orden": 1},
+                {"nombre": "Pedidos Reposición", "descripcion": "Pasar pedidos de reposición si falta mercancía. Los pedidos se deben realizar cuando realmente se necesite mercancía, se recomienda realizarlo cada dos semanas para evitar pedidos muy pequeños. Se deben realizar los pedidos de reposición para que tengamos la oferta completa de productos, en los pedidos a ROENCAR el pedido mínimo debe ser de 600€. \n Foto de, pedido realizado a ROENCAR, pedido de LECHE, YOGUR y FRUTAS y de los tiquets de OTRAS COMPRAS", "orden": 2},
+                {"nombre": "Almacén y trastienda", "descripcion": "Se debe tener el almacén y la trastienda en perfecto estado. Foto de trastienda ordenada y limpia y Foto de estanterías ordenadas y limpias identificando con etiquetas lo que tenemos en los estantos.", "orden": 3},
+                {"nombre": "Limpieza - Neveras, Frigos y Congelador", "descripcion": "Se debe realizar limpieza de neveras frigos y congelador que hay en el local. Foto del interior de los frigos y del congelador.", "orden": 4},
+                {"nombre": "Recuento Tarrinas y Vasos Diario (MINI/CLASSIC/MAXI y MINI/MEDIUM/MAXI)", "descripcion": "Indicar en observaciones, Número de tarrinas MINI,CLASSIC y MAXI y el número de vasos MINI,MEDIUM y MAXI. Incluir el número de tarrinas y vasos.", "orden": 5}
             ]
         elif tipo_proceso == "PROCESO MENSUAL":
             tareas = [
-                {"nombre": "Inventario mensual", "descripcion": "Inventario completo de productos", "orden": 1},
-                {"nombre": "Revisión de objetivos", "descripcion": "Evaluar cumplimiento de objetivos del mes", "orden": 2},
-                {"nombre": "Mantenimiento preventivo", "descripcion": "Realizar mantenimiento preventivo de equipos críticos", "orden": 3},
-                {"nombre": "Análisis de ventas", "descripcion": "Analizar el rendimiento de ventas del mes", "orden": 4},
-                {"nombre": "Planificación siguiente mes", "descripcion": "Establecer objetivos para el siguiente mes", "orden": 5}
+                {"nombre": "Sobre documentación", "descripcion": "Se debe rellenar sobre la documentación (albaranes, ingresos,bajas...) A cierre de mes debemos incorporar al sobre de documentación mensual, todos los documentos que deberemos remitir al departamento de contabilidad, quien coordinará la retirada de los sobres con la empresa de mensajería. Cualquier duda consultar con contabilidad@smooy.es", "orden": 1},
+                {"nombre": "Inventario Mensual General", "descripcion": "Se debe llevar a cabo el inventario total de cada tienda. En el TPV un recuento de todas las referencias existentes en la tienda, que permita una comprobación de fechas de caducidad y actualización de la mercancia almacenada en cada una de las tiendas.", "orden": 2},
+                {"nombre": "Limpieza Congelador en Profundidad", "descripcion": "Se debe llevar a cabo una limpieza exhaustiva del congelador vertical y realizar limpieza en profundidad del congelador. Foto del congelador con la puerta abierta", "orden": 3},
+                {"nombre": "Limpieza de persianas exteriores de local ( por dentro y por fuera) ", "descripcion": "Se deben limpiar en profundidad las persianas de cierre del local, interior y exteriormente con la persiana bajada. Si tienen algún grafiti se debe comprar en droguería un quita grafitis. Foto interior y exterior de la persiana.", "orden": 4},
+                {"nombre": "Curso manipulador de alimentos", "descripcion": "Foto del diploma de manipulador de alimentos", "orden": 5},
+		        {"nombre": "Control de higiene manos", "descripcion": "Foto de las manos sin joyas, uñas cortas, limpias y sin esmalte, anotar hora y motivo del último lavado de manos", "orden": 6}
             ]
         else:
             tareas = [
@@ -4128,8 +4138,9 @@ async def eliminar_comentario_aviso(aviso_id: int, comentario_id: int, request: 
         if conexion and conexion.is_connected():
             conexion.close()
 
-async def generar_procesos_diarios_v2():
+def generar_procesos_diarios_v2():
     """Genera procesos diarios de tipo APERTURA, CIERRE y TRASCURSO DE JORNADA para todos los establecimientos"""
+    print(f"[{datetime.now()}] Iniciando generación de procesos diarios...")
     conexion = conectar_db()
     if conexion is None:
         print("Error: No se pudo conectar a la base de datos")
@@ -4140,7 +4151,7 @@ async def generar_procesos_diarios_v2():
         cursor = conexion.cursor(dictionary=True)
         
         # Obtener establecimientos activos con su nombre
-        cursor.execute("SELECT id, nombre FROM Establecimientos WHERE estado = 'activo'")
+        cursor.execute("SELECT id, nombre FROM establecimientos WHERE estado = 'activo'")
         establecimientos = cursor.fetchall()
         
         fecha_actual = datetime.now().strftime('%Y-%m-%d')
@@ -4151,8 +4162,8 @@ async def generar_procesos_diarios_v2():
         # Horarios para cada tipo (ejemplos)
         horarios = {
             "APERTURA": "07:00",
-            "CIERRE": "7:00",
-            "TRASCURSO DE JORNADA": "7:00"
+            "CIERRE": "21:00",
+            "TRASCURSO DE JORNADA": "14:00"
         }
         
         # Por cada establecimiento, crear los tres tipos de procesos diarios
@@ -4191,16 +4202,16 @@ async def generar_procesos_diarios_v2():
                 ))
         
         conexion.commit()
-        print(f"Procesos diarios generados exitosamente para {len(establecimientos)} establecimientos")
+        print(f"[{datetime.now()}] Procesos diarios generados exitosamente para {len(establecimientos)} establecimientos")
     except Exception as e:
-        print(f"Error al generar procesos diarios: {e}")
+        print(f"[{datetime.now()}] Error al generar procesos diarios: {e}")
     finally:
         if cursor:
             cursor.close()
         if conexion and conexion.is_connected():
             conexion.close()
 
-async def generar_procesos_semanales_v2():
+def generar_procesos_semanales_v2():
     """Genera procesos semanales para todos los establecimientos activos"""
     conexion = conectar_db()
     if conexion is None:
@@ -4212,7 +4223,7 @@ async def generar_procesos_semanales_v2():
         cursor = conexion.cursor(dictionary=True)
         
         # Obtener establecimientos activos con su nombre
-        cursor.execute("SELECT id, nombre FROM Establecimientos WHERE estado = 'activo'")
+        cursor.execute("SELECT id, nombre FROM establecimientos WHERE estado = 'activo'")
         establecimientos = cursor.fetchall()
         
         fecha_actual = datetime.now().strftime('%Y-%m-%d')
@@ -4265,7 +4276,7 @@ async def generar_procesos_semanales_v2():
         if conexion and conexion.is_connected():
             conexion.close()
 
-async def generar_procesos_mensuales_v2():
+def generar_procesos_mensuales_v2():
     """Genera procesos mensuales para todos los establecimientos activos"""
     conexion = conectar_db()
     if conexion is None:
@@ -4277,7 +4288,7 @@ async def generar_procesos_mensuales_v2():
         cursor = conexion.cursor(dictionary=True)
         
         # Obtener establecimientos activos con su nombre
-        cursor.execute("SELECT id, nombre FROM Establecimientos WHERE estado = 'activo'")
+        cursor.execute("SELECT id, nombre FROM establecimientos WHERE estado = 'activo'")
         establecimientos = cursor.fetchall()
         
         fecha_actual = datetime.now().strftime('%Y-%m-%d')
@@ -4343,7 +4354,7 @@ def obtener_establecimientos_por_usuario(usuario_id: int = Path(...)):
     try:
         cursor = conexion.cursor(dictionary=True)
         query = """
-        SELECT e.* FROM Establecimientos e
+        SELECT e.* FROM establecimientos e
         JOIN usuario_establecimiento ue ON e.id = ue.establecimiento_id
         WHERE ue.usuario_id = %s
         """
@@ -4368,24 +4379,18 @@ def obtener_establecimientos_por_usuario(usuario_id: int = Path(...)):
         raise HTTPException(status_code=500, detail=f"Error al consultar la base de datos: {e}")
     finally:
         if cursor:
-            cursor.close()
+     
+           cursor.close()
         if conexion and conexion.is_connected():
             conexion.close()
 
+# Importar módulo personalizado para la configuración del scheduler
+from scheduler_config import setup_scheduler
+
 # Configurar el planificador para la tabla procesos2
-scheduler = AsyncIOScheduler()
+scheduler = setup_scheduler(app, conectar_db)
 
-# Programar las tareas automáticas
-scheduler.add_job(generar_procesos_diarios_v2, CronTrigger(hour=8, minute=46))  # Cada día a las 7:00 AM
-scheduler.add_job(generar_procesos_semanales_v2, CronTrigger(day_of_week='mon', hour=7, minute=0))  # Cada lunes a las 8:00 AM
-scheduler.add_job(generar_procesos_mensuales_v2, CronTrigger(day=1, hour=7, minute=0))  # El primer día de cada mes a las 9:00 AM
-
-# Añade este evento de inicio para la aplicación
-@app.on_event("startup")
-async def startup_event():
-    print("Iniciando scheduler para generación automática de procesos...")
-    scheduler.start()
-    print("Scheduler iniciado correctamente")
+# El módulo scheduler_config.py se encarga de configurar y gestionar el scheduler
 
 @app.put("/procesos/{proceso_id}/verificar-completado")
 def verificar_completado(proceso_id: int):
@@ -4424,7 +4429,7 @@ def verificar_completado(proceso_id: int):
         # Determinar el nuevo estado según si todas las tareas están completadas
         nuevo_estado = "Verificación pendiente" if total_tareas == tareas_completadas else "Pendiente"
         
-        # Actualizar el estado del proceso
+        # Actualizar el estado del proceso - FIJADO: asegurar que actualizamos procesos2
         query_update = """
             UPDATE procesos2 
             SET estado = %s 
@@ -4567,7 +4572,7 @@ def obtener_comentarios_aviso(aviso_id: int = Path(...)):
     finally:
         if cursor:
             cursor.close()
-        if conexion and conexion.is_connected():
+        if conexion.is_connected():
             conexion.close()
 
 @app.post("/avisos/{aviso_id}/comentarios")
@@ -4652,7 +4657,7 @@ def agregar_comentario_aviso(aviso_id: int, comentario_data: dict = Body(...)):
     finally:
         if cursor:
             cursor.close()
-        if conexion and conexion.is_connected():
+        if conexion.is_connected():
             conexion.close()
 
 @app.delete("/avisos/{aviso_id}/comentarios/{comentario_id}")
@@ -4693,7 +4698,7 @@ async def eliminar_comentario_aviso(aviso_id: int, comentario_id: int, request: 
     finally:
         if cursor:
             cursor.close()
-        if conexion and conexion.is_connected():
+        if conexion.is_connected():
             conexion.close()
 
     # Endpoint para verificar si un proceso está completado
@@ -4729,7 +4734,7 @@ def verificar_completado(proceso_id: int):
             
             # Opcionalmente, actualizar el estado del proceso
             cursor.execute("""
-                UPDATE procesos SET estado = 'completado', fecha_actualizacion = NOW()
+                UPDATE procesos SET estado = 'Verificación pendiente', fecha_actualizacion = NOW()
                 WHERE id = %s
             """, (proceso_id,))
             conn.commit()
@@ -4741,41 +4746,422 @@ def verificar_completado(proceso_id: int):
     
     except Exception as e:
         return {"error": str(e)}, 500
-
-# Endpoint para actualizar el estado de un proceso
 @app.put("/procesos/{proceso_id}/estado")
-def actualizar_estado_proceso(proceso_id: int, datos: dict):
+def actualizar_estado_proceso(proceso_id: int, datos: dict = Body(...)):
+    """
+    Actualiza el estado de un proceso específico
+    """
     try:
         if "estado" not in datos:
-            return {"error": "El campo 'estado' es requerido"}, 400
+            raise HTTPException(status_code=400, detail="El campo 'estado' es requerido")
         
         nuevo_estado = datos["estado"]
         
-        # Validar que el estado sea uno válido
-        estados_validos = ["pendiente", "en_proceso", "completado", "cancelado", "verificacion_pendiente"]
+        # Estados válidos utilizados en el resto de la aplicación
+        estados_validos = ["Pendiente", "Verificación pendiente", "Verificado", "En Proceso"]
         if nuevo_estado not in estados_validos:
-            return {"error": f"Estado no válido. Debe ser uno de: {', '.join(estados_validos)}"}, 400
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Estado no válido. Debe ser uno de: {', '.join(estados_validos)}"
+            )
+
+        conexion = conectar_db()
+        if conexion is None:
+            raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+            
+        cursor = None
+        try:
+            cursor = conexion.cursor()
+            
+            # Actualizar el estado del proceso en la tabla procesos2
+            cursor.execute("""
+                UPDATE procesos2 
+                SET estado = %s
+                WHERE id = %s
+            """, (nuevo_estado, proceso_id))
+            
+            if cursor.rowcount == 0:
+                raise HTTPException(status_code=404, detail=f"No se encontró proceso con ID {proceso_id}")
+            
+            conexion.commit()
+            
+            return {
+                "success": True, 
+                "message": f"Estado del proceso actualizado a '{nuevo_estado}'"
+            }
         
-        conn = get_connection()
-        cursor = conn.cursor()
+        finally:
+            if cursor:
+                cursor.close()
+            if conexion.is_connected():
+                conexion.close()
+                
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error al actualizar estado del proceso: {e}")
+        raise HTTPException(status_code=500, detail=f"Error al actualizar estado: {str(e)}")
+    
+@app.get("/tareas/{id}/proceso")
+async def obtener_proceso_tarea(id: int):
+    """
+    Obtiene el proceso relacionado con una tarea específica
+    """
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    
+    cursor = None
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        # Buscar la tarea
+        cursor.execute("SELECT * FROM proceso_tareas WHERE id = %s", (id,))
+        tarea = cursor.fetchone()
+        if not tarea:
+            raise HTTPException(status_code=404, detail=f"Tarea con ID {id} no encontrada")
         
-        # Actualizar el estado del proceso
-        cursor.execute("""
-            UPDATE procesos 
-            SET estado = %s, fecha_actualizacion = NOW() 
-            WHERE id = %s
-        """, (nuevo_estado, proceso_id))
+        proceso_id = tarea.get("proceso_id")
+        if not proceso_id:
+            raise HTTPException(status_code=404, detail=f"No se encontró proceso asociado a la tarea {id}")
         
-        if cursor.rowcount == 0:
-            cursor.close()
-            conn.close()
-            return {"error": f"No se encontró proceso con ID {proceso_id}"}, 404
+        # Buscar el proceso con JOIN a la tabla de establecimientos
+        query = """
+            SELECT p.*, e.nombre AS nombre_establecimiento, e.direccion, e.tipo, e.estado AS estado_establecimiento
+            FROM procesos2 p
+            LEFT JOIN establecimientos e ON p.establecimiento_id = e.id
+            WHERE p.id = %s
+        """
+        cursor.execute(query, (proceso_id,))
+        proceso = cursor.fetchone()
+        if not proceso:
+            raise HTTPException(status_code=404, detail=f"Proceso con ID {proceso_id} no encontrado")
         
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # Convertir fechas a string solo si no son None
+        for fecha_campo in ["fecha_inicio", "fecha_fin"]:
+            if fecha_campo in proceso and proceso[fecha_campo] is not None:
+                proceso[fecha_campo] = proceso[fecha_campo].strftime('%Y-%m-%d')
+            else:
+                proceso[fecha_campo] = None
+          # Asegurarse de incluir toda la información del establecimiento
+        if proceso.get("establecimiento_id") and not proceso.get("nombre_establecimiento"):
+            # Si hay un establecimiento_id pero no se obtuvo su nombre, buscar explícitamente
+            cursor.execute("SELECT * FROM establecimientos WHERE id = %s", (proceso.get("establecimiento_id"),))
+            establecimiento = cursor.fetchone()
+            if establecimiento:
+                proceso["nombre_establecimiento"] = establecimiento.get("nombre")
+                proceso["direccion_establecimiento"] = establecimiento.get("direccion")
+                proceso["tipo_establecimiento"] = establecimiento.get("tipo")
+                proceso["estado_establecimiento"] = establecimiento.get("estado")
         
-        return {"success": True, "mensaje": f"Estado del proceso actualizado a '{nuevo_estado}'"}
+        # Envolver el proceso en un objeto para que coincida con lo que la app espera
+        return {"proceso": proceso}
     
     except Exception as e:
-        return {"error": str(e)}, 500
+        print(f"Error al obtener proceso de tarea: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al obtener proceso de tarea: {str(e)}")
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion.is_connected():
+            conexion.close()
+# Modelo para la solicitud de cambio de contraseña
+class CambiarPasswordRequest(BaseModel):
+    usuario_id: int
+    password_actual: str
+    password_nueva: str
+
+# 1. ENDPOINT MEJORADO CON INVALIDACIÓN DE SESIÓN
+@app.post("/cambiar-password", response_model=Dict[str, Any])
+async def cambiar_password(datos: CambiarPasswordRequest):
+    """
+    Endpoint para cambiar la contraseña de un usuario.
+    Incluye invalidación de tokens/sesiones activas.
+    """
+    conexion = None
+    cursor = None
+    
+    try:
+        print(f"[CAMBIAR_PASSWORD] Iniciando proceso para usuario ID: {datos.usuario_id}")
+        
+        conexion = conectar_db()
+        if not conexion:
+            return {"success": False, "message": "Error de conexión a la base de datos"}
+        
+        cursor = conexion.cursor(dictionary=True)
+        
+        # Verificar que el usuario existe
+        cursor.execute("SELECT * FROM usuarios WHERE ID = %s", (datos.usuario_id,))
+        usuario = cursor.fetchone()
+        
+        if not usuario:
+            return {"success": False, "message": "Usuario no encontrado"}
+        
+        # Determinar columna de contraseña
+        password_column = None
+        for possible_column in ['Contraseña', 'contraseña', 'contrasena', 'password']:
+            if possible_column in usuario:
+                password_column = possible_column
+                break
+        
+        if not password_column:
+            return {"success": False, "message": "Error de configuración del servidor"}
+        
+        stored_password = usuario[password_column]
+        
+        # Validaciones
+        if not datos.password_nueva or len(datos.password_nueva.strip()) < 6:
+            return {"success": False, "message": "La nueva contraseña debe tener al menos 6 caracteres"}
+        
+        if datos.password_actual == datos.password_nueva:
+            return {"success": False, "message": "La nueva contraseña debe ser diferente a la actual"}
+        
+        # Verificar contraseña actual - ELIMINADO el caso especial para AdminSMOOY y StaffSMOOY
+        is_password_correct = False
+        
+        # Verificación estándar para cualquier usuario, sin excepciones
+        if stored_password and stored_password.startswith('$2'):
+            is_password_correct = pwd_context.verify(datos.password_actual, stored_password)
+        else:
+            is_password_correct = (datos.password_actual == stored_password)
+        
+        if not is_password_correct:
+            return {"success": False, "message": "La contraseña actual es incorrecta"}
+        
+        # Generar hash de la nueva contraseña
+        hashed_password = pwd_context.hash(datos.password_nueva)
+        
+        # CLAVE: Actualizar la contraseña Y generar un nuevo timestamp de sesión
+        import time
+        session_timestamp = int(time.time())
+        
+        # Actualizar contraseña y timestamp de sesión
+        if 'session_timestamp' in usuario:  # Si existe la columna
+            query = f"UPDATE usuarios SET {password_column} = %s, session_timestamp = %s WHERE ID = %s"
+            cursor.execute(query, (hashed_password, session_timestamp, datos.usuario_id))
+        else:
+            query = f"UPDATE usuarios SET {password_column} = %s WHERE ID = %s"
+            cursor.execute(query, (hashed_password, datos.usuario_id))
+        
+        if cursor.rowcount == 0:
+            return {"success": False, "message": "No se pudo actualizar la contraseña"}
+        
+        conexion.commit()
+        
+        # Invalidar tokens existentes si tienes tabla de tokens
+        try:
+            cursor.execute("DELETE FROM tokens WHERE usuario_id = %s", (datos.usuario_id,))
+            conexion.commit()
+            print(f"[CAMBIAR_PASSWORD] Tokens invalidados para usuario {datos.usuario_id}")
+        except:
+            print("[CAMBIAR_PASSWORD] No se encontró tabla de tokens o ya estaban limpios")
+        
+        return {
+            "success": True,
+            "message": "Contraseña actualizada correctamente. Debes iniciar sesión nuevamente.",
+            "require_relogin": True,  # Flag para forzar re-login
+            "session_invalidated": True
+        }
+        
+    except Exception as e:
+        print(f"[CAMBIAR_PASSWORD] Error: {str(e)}")
+        if conexion:
+            conexion.rollback()
+        return {"success": False, "message": f"Error al cambiar contraseña: {str(e)}"}
+        
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
+
+# 2. ENDPOINT DE LOGIN MEJORADO CON VERIFICACIÓN DE TIMESTAMP
+@app.post("/login")
+async def login(request: LoginRequest):
+    """
+    Endpoint de login mejorado que verifica timestamps de sesión
+    """
+    try:
+        conexion = conectar_db()
+        if not conexion:
+            return LoginResponse(success=False, message="Error de conexión")
+        
+        cursor = conexion.cursor(dictionary=True)
+        
+        # Buscar usuario
+        cursor.execute("SELECT * FROM usuarios WHERE usuario = %s", (request.usuario,))
+        usuario = cursor.fetchone()
+        
+        if not usuario:
+            return LoginResponse(success=False, message="Usuario no encontrado")
+        
+        # Verificar contraseña
+        password_column = None
+        for col in ['Contraseña', 'contraseña', 'contrasena', 'password']:
+            if col in usuario:
+                password_column = col
+                break
+        
+        if not password_column:
+            return LoginResponse(success=False, message="Error de configuración")
+        
+        stored_password = usuario[password_column]
+        
+        # Verificar contraseña - ELIMINADO el bypass para AdminSMOOY y StaffSMOOY
+        password_valid = False
+        
+        # Verificación estándar para cualquier usuario
+        if stored_password and stored_password.startswith('$2'):
+            password_valid = pwd_context.verify(request.contraseña, stored_password)
+        else:
+            password_valid = (request.contraseña == stored_password)
+        
+        if not password_valid:
+            print(f"[LOGIN] Contraseña incorrecta para usuario: {request.usuario}")
+            return LoginResponse(success=False, message="Usuario o contraseña incorrectos")
+        
+        # Generar nuevo token
+        token = generate_jwt_token(usuario["ID"], usuario["usuario"])
+        
+        return LoginResponse(
+            success=True,
+            message="Login exitoso",
+            token=token,
+            userId=usuario["ID"],
+            rol=usuario.get("Rol", "")
+        )
+        
+    except Exception as e:
+        print(f"[LOGIN] Error: {str(e)}")
+        return LoginResponse(success=False, message="Error interno del servidor")
+    
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
+
+
+# Clase para el envío masivo de avisos
+class AvisoMasivo(BaseModel):
+    nombre: str
+    categoria: str
+    descripcion: str
+    establecimientos: List[int]  # Lista de IDs de establecimientos
+    usuarioId: int
+
+@app.post("/avisos/masivo")
+async def enviar_aviso_masivo(aviso_masivo: AvisoMasivo):
+    """
+    Endpoint para crear avisos masivos para múltiples establecimientos
+    Solo accesible para usuarios con rol Admin
+    """
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    
+    cursor = None
+    try:
+        cursor = conexion.cursor()
+        
+        # Verificar que los establecimientos existan
+        for est_id in aviso_masivo.establecimientos:
+            cursor.execute("SELECT id FROM establecimientos WHERE id = %s", (est_id,))
+            if not cursor.fetchone():
+                raise HTTPException(status_code=404, detail=f"Establecimiento con ID {est_id} no encontrado")
+        
+        # Crear un aviso para cada establecimiento
+        avisos_creados = []
+        fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        for est_id in aviso_masivo.establecimientos:
+            # Insertar aviso
+            query = """
+                INSERT INTO avisos (nombre, categoria, descripcion, establecimiento_id, usuario_id, fecha_creacion, estado)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            valores = (
+                aviso_masivo.nombre,
+                aviso_masivo.categoria,
+                aviso_masivo.descripcion,
+                est_id,
+                aviso_masivo.usuarioId,
+                fecha_actual,
+                "Pendiente"
+            )
+            
+            cursor.execute(query, valores)
+            aviso_id = cursor.lastrowid
+            
+            avisos_creados.append({
+                "id": aviso_id,
+                "establecimientoId": est_id
+            })
+        
+        conexion.commit()
+        
+        return {
+            "success": True,
+            "message": f"Se crearon {len(avisos_creados)} avisos exitosamente",
+            "avisos": avisos_creados
+        }
+    
+    except Exception as e:
+        if conexion:
+            conexion.rollback()
+        print(f"Error al crear avisos masivos: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al crear avisos masivos: {str(e)}")
+    
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
+
+@app.get("/establecimientos/todos")
+async def obtener_todos_establecimientos(request: Request):
+    """
+    Obtiene todos los establecimientos sin filtro
+    Solo accesible para usuarios con rol Admin
+    """
+    # Verificar que el usuario sea administrador
+    if not request.state.user or request.state.user.get("role") != "Admin":
+        raise HTTPException(
+            status_code=403,
+            detail="Acceso denegado. Se requiere rol de administrador."
+        )
+    
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    
+    cursor = None
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        
+        # Consultar todos los establecimientos
+        cursor.execute("SELECT * FROM establecimientos ORDER BY nombre")
+        establecimientos = cursor.fetchall()
+        
+        # Formatear los resultados para garantizar consistencia
+        formatted_establecimientos = []
+        for establecimiento in establecimientos:
+            formatted_establecimiento = {
+                "id": establecimiento.get('id') or establecimiento.get('ID'),
+                "nombre": establecimiento.get('nombre') or establecimiento.get('Nombre'),
+                "direccion": establecimiento.get('direccion') or establecimiento.get('Direccion', ''),
+                "tipo": establecimiento.get('tipo') or establecimiento.get('Tipo', ''),
+                "estado": establecimiento.get('estado') or establecimiento.get('Estado', 'activo')
+            }
+            formatted_establecimientos.append(formatted_establecimiento)
+        
+        return {"establecimientos": formatted_establecimientos}
+    
+    except Error as e:
+        print(f"Error al consultar establecimientos: {e}")
+        raise HTTPException(status_code=500, detail=f"Error al consultar la base de datos: {e}")
+    
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
