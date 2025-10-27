@@ -4169,7 +4169,7 @@ def generar_procesos_diarios_v2():
                     "horario": horarios[tipo],
                     "fecha_inicio": fecha_actual,
                     "fecha_fin": fecha_actual,
-                    "estado": "Verificación pendiente",
+                    "estado": "Pendiente",
                     "ubicacion": establecimiento["nombre"],
                     "establecimiento_id": establecimiento["id"],
                     "usuario_id": None  # Sistema automático
@@ -4234,7 +4234,7 @@ def generar_procesos_semanales_v2():
                 "horario": hora_actual,
                 "fecha_inicio": fecha_actual,
                 "fecha_fin": fecha_fin,
-                "estado": "Verificación pendiente",
+                "estado": "Pendiente",
                 "ubicacion": establecimiento["nombre"],
                 "establecimiento_id": establecimiento["id"],
                 "usuario_id": None
@@ -4299,7 +4299,7 @@ def generar_procesos_mensuales_v2():
                 "horario": hora_actual,
                 "fecha_inicio": fecha_actual,
                 "fecha_fin": fecha_fin,
-                "estado": "Verificación pendiente",
+                "estado": "Pendiente",
                 "ubicacion": establecimiento["nombre"],
                 "establecimiento_id": establecimiento["id"],
                 "usuario_id": None
