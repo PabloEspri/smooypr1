@@ -701,16 +701,11 @@ def obtener_procesos(establecimiento_id: int = None):
         # Si tenemos un ID de establecimiento, filtrar por él
         if establecimiento_id is not None:
             print(f"Obteniendo procesos para establecimiento: {establecimiento_id}")
-            cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
-            "FROM procesos2 p LEFT JOIN usuarios u " \
-            "ON p.id_usuario_verificador = u.ID " \
-            "WHERE establecimiento_id = %s", (establecimiento_id,))
+            cursor.execute("SELECT * FROM procesos2 WHERE establecimiento_id = %s", (establecimiento_id,))
         else:
             # Si no, obtener todos los procesos
             # print("Obteniendo todos los procesos")
-            cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
-            "FROM procesos2 p LEFT JOIN usuarios u " \
-            "ON p.id_usuario_verificador = u.ID")
+            cursor.execute("SELECT * FROM procesos2")
         
         procesos = cursor.fetchall()
         
@@ -755,10 +750,7 @@ def obtener_proceso_por_id(id: int):
         cursor = conexion.cursor(dictionary=True)
         
         # Consulta SQL para obtener el proceso por ID
-        cursor.execute("SELECT p.*, CONCAT_WS(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
-        "FROM procesos2 p LEFT JOIN usuarios u  " \
-        "ON p.id_usuario_verificador = u.ID " \
-        "WHERE id = %s", (id,))
+        cursor.execute("SELECT * FROM procesos2 WHERE id = %s", (id,))
         proceso = cursor.fetchone()
         
         if not proceso:
