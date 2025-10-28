@@ -4427,7 +4427,12 @@ def verificar_completado(proceso_id: int):
         tareas_completadas = resultado["tareas_completadas"]
         
         # Determinar el nuevo estado según si todas las tareas están completadas
-        nuevo_estado = "Verificación pendiente" if total_tareas == tareas_completadas else "Pendiente"
+        if total_tareas == tareas_completadas:
+            nuevo_estado = "Verificación pendiente" 
+        elif 0 < tareas_completadas < total_tareas:
+            nuevo_estado = "En progreso"
+        else: 
+            nuevo_estado= "Pendiente"
         
         # Actualizar el estado del proceso - FIJADO: asegurar que actualizamos procesos2
         query_update = """
