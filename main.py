@@ -4430,7 +4430,7 @@ def verificar_completado(proceso_id: int):
         if total_tareas == tareas_completadas:
             nuevo_estado = "Verificación pendiente" 
         elif 0 < tareas_completadas < total_tareas:
-            nuevo_estado = "En progreso"
+            nuevo_estado = "En proceso"
         else: 
             nuevo_estado= "Pendiente"
         
