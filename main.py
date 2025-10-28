@@ -4813,6 +4813,16 @@ def verificar_completado(proceso_id: int):
                 WHERE id = %s
             """, (proceso_id,))
             conn.commit()
+        elif total_tareas > 0 and 0 < tareas_completadas < total_tareas:
+            esta_completado = False
+            mensaje = "El proceso está en proceso"
+            
+            # Opcionalmente, actualizar el estado del proceso
+            cursor.execute("""
+                UPDATE procesos SET estado = 'En proceso', fecha_actualizacion = NOW()
+                WHERE id = %s
+            """, (proceso_id,))
+            conn.commit()
         
         cursor.close()
         conn.close()
