@@ -704,7 +704,8 @@ def obtener_procesos(establecimiento_id: int = None):
             cursor.execute("SELECT p.*, CONCAT(u.Nombre, ' ', u.apellido) as nombre_usuario_verificador " \
             "FROM procesos2 p LEFT JOIN usuarios u " \
             "ON p.id_usuario_verificador = u.ID " \
-            "WHERE p.establecimiento_id = %s", (establecimiento_id,))
+            "WHERE p.establecimiento_id = %s " \
+            "ORDER BY p.id DESC", (establecimiento_id,))
         else:
             # Si no, obtener todos los procesos
             # print("Obteniendo todos los procesos")
