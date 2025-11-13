@@ -2937,7 +2937,61 @@ async def obtener_usuarios():
     except Exception as e:
         print(f"Error: {e}")
         return {"usuarios": []}
-    
+
+@app.get("/usuarios/establecimiento/{establecimiento_id}")
+def obtener_usuarios_por_establecimiento(establecimiento_id: int):
+    """
+    Devuelve los usuarios que pertenecen a un establecimiento concreto.
+    Se asume que la tabla 'usuarios' tiene la columna 'establecimiento_id'.
+    """
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+
+    cursor = None
+    try:
+      cursor = conexion.cursor(dictionary=True)
+
+      query = """
+          SELECT
+              id,
+              nombre,
+              apellido,
+              nombre_usuario,
+              email,
+              rol,
+              establecimiento_id,
+              estado
+          FROM usuarios
+          WHERE establecimiento_id = %s
+      """
+      cursor.execute(query, (establecimiento_id,))
+      rows = cursor.fetchall()
+
+      # Devolver en camelCase como espera Flutter
+      usuarios = []
+      for r in rows:
+          usuarios.append({
+              "id": r["id"],
+              "nombre": r["nombre"],
+              "apellido": r.get("apellido", ""),
+              "nombreUsuario": r["nombre_usuario"],
+              "email": r.get("email", ""),
+              "rol": r.get("rol", ""),
+              "establecimientoId": r.get("establecimiento_id"),
+              "estado": r.get("estado", ""),
+          })
+
+      return usuarios
+
+    except Exception as e:
+      raise HTTPException(status_code=500, detail=f"Error al obtener usuarios del establecimiento: {e}")
+    finally:
+      if cursor:
+          cursor.close()
+      if conexion:
+          conexion.close()
+
 @app.delete("/usuarios/{usuario_id}")
 async def eliminar_usuario(usuario_id: int):
     """Elimina un usuario por su ID."""
