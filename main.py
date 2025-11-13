@@ -853,44 +853,55 @@ def obtener_establecimientos():
         if conexion and conexion.is_connected():
             conexion.close()
 
-@app.get("/establecimientos/{id}", response_model=Dict[str, Any])
-async def obtener_establecimiento_por_id(id: int = Path(...), current_user: Usuario = Depends(get_current_user)):
+@app.get("/establecimientos/{establecimiento_id}")
+def obtener_establecimiento_por_id(establecimiento_id: int):
     """
-    Obtiene establecimiento por su ID
+    Devuelve un establecimiento por su ID.
     """
-    conn = conectar_db()
-    if conn is None:
-        raise HTTPException(status_code=500, detail="Error de conexión a la base de datos")
-    
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+
+    cursor = None
     try:
-        cursor = conn.cursor(dictionary=True)
-        
-        # Consultar la tarea con el ID proporcionado
+        cursor = conexion.cursor(dictionary=True)
+
         query = """
-            SELECT * 
-            FROM establecimiento 
+            SELECT 
+                id,
+                nombre,
+                direccion,
+                tipo,
+                estado
+            FROM establecimientos
             WHERE id = %s
+            LIMIT 1
         """
-        cursor.execute(query, (id,))
+
+        cursor.execute(query, (establecimiento_id,))
         establecimiento = cursor.fetchone()
-        
+
         if not establecimiento:
-            raise HTTPException(status_code=404, detail=f"Establecimiento con ID {id} no encontrada")
-        
-        return {"id": establecimiento["id"], 
-                "nombre": establecimiento["nombre"], 
-                "direccion": establecimiento["direccion"],
-                "tipo": establecimiento["tipo"],
-                "estado": establecimiento["estado"]}
-    
+            raise HTTPException(status_code=404, detail=f"Establecimiento con ID {establecimiento_id} no encontrado")
+
+        # Convertir a formato camelCase para Flutter
+        return {
+            "id": establecimiento["id"],
+            "nombre": establecimiento["nombre"],
+            "direccion": establecimiento["direccion"],
+            "tipo": establecimiento["tipo"],
+            "estado": establecimiento["estado"],
+        }
+
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al obtener establecimiento: {str(e)}")
-    
+        raise HTTPException(status_code=500, detail=f"Error al obtener establecimiento: {e}")
+
     finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        if cursor: cursor.close()
+        if conexion: conexion.close()
+
 
 
 @app.get("/usuario_establecimiento")
