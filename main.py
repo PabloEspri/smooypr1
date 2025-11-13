@@ -2942,11 +2942,17 @@ async def obtener_usuarios():
 def obtener_usuarios_por_establecimiento(establecimiento_id: int):
     """
     Devuelve los usuarios que pertenecen a un establecimiento concreto.
-    Se asume que la tabla 'usuarios' tiene la columna 'establecimiento_id'.
+    Tablas:
+      - usuarios (ID, Nombre, usuario, Rol, apellido)
+      - usuario_establecimiento (usuario_id, establecimiento_id)
+      - establecimientos (id, nombre)
     """
     conexion = conectar_db()
     if conexion is None:
-        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+        raise HTTPException(
+            status_code=500,
+            detail="No se pudo conectar a la base de datos"
+        )
 
     cursor = None
     try:
@@ -2954,8 +2960,13 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
 
         query = """
             SELECT
-                u.*,
-                e.nombre AS establecimientoNombre
+                u.ID,
+                u.Nombre,
+                u.usuario,
+                u.Rol,
+                u.apellido,
+                e.nombre AS establecimiento_nombre,
+                ue.establecimiento_id AS establecimiento_id
             FROM usuarios u
             JOIN usuario_establecimiento ue
                 ON ue.usuario_id = u.ID
@@ -2967,18 +2978,9 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
         cursor.execute(query, (establecimiento_id,))
         rows = cursor.fetchall()
 
-        usuarios = []
-        for r in rows:
-            usuarios.append({
-                "ID": r["ID"],
-                "Nombre": r["Nombre"] or "",
-                "apellido": r.get("apellido") or "",
-                "usuario": r["usuario"] or "",
-                "Rol": r["Rol"] or "",
-                "establecimientoNombre": r.get("establecimientoNombre") or "",
-            })
-
-        return usuarios
+        # Muy importante: devolvemos las filas TAL CUAL,
+        # sin cambiar nombres de claves, para que encaje con Usuario.fromJson
+        return rows
 
     except Exception as e:
         raise HTTPException(
