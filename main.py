@@ -853,39 +853,44 @@ def obtener_establecimientos():
         if conexion and conexion.is_connected():
             conexion.close()
 
-@app.get("/establecimientos/{id}")
-def obtener_establecimiento_por_id(id: int):
+@app.get("/establecimientos/{id}", response_model=Dict[str, Any])
+async def obtener_establecimiento_por_id(id: int = Path(...), current_user: Usuario = Depends(get_current_user)):
     """
-    Obtiene un establecimiento específico por su ID
+    Obtiene establecimiento por su ID
     """
-    conexion = conectar_db()
-    if conexion is None:
-        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    conn = conectar_db()
+    if conn is None:
+        raise HTTPException(status_code=500, detail="Error de conexión a la base de datos")
     
-    cursor = None
     try:
-        cursor = conexion.cursor(dictionary=True)
+        cursor = conn.cursor(dictionary=True)
         
-        # Consulta SQL para obtener el establecimiento por ID
-        cursor.execute("SELECT e.* " \
-        "FROM establecimientos e " \
-        "WHERE e.id = %s", (id,))
+        # Consultar la tarea con el ID proporcionado
+        query = """
+            SELECT * 
+            FROM establecimiento 
+            WHERE id = %s
+        """
+        cursor.execute(query, (id,))
         establecimiento = cursor.fetchone()
         
-        if not proceso:
-            raise HTTPException(status_code=404, detail="Establecimiento no encontrado")
+        if not establecimiento:
+            raise HTTPException(status_code=404, detail=f"Establecimiento con ID {id} no encontrada")
         
-        return establecimiento
+        return {"id": establecimiento["id"], 
+                "nombre": establecimiento["nombre"], 
+                "direccion": establecimiento["direccion"],
+                "tipo": establecimiento["tipo"],
+                "estado": establecimiento["estado"]}
     
-    except Error as e:
-        print(f"Error al consultar proceso: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al consultar la base de datos: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener establecimiento: {str(e)}")
     
     finally:
         if cursor:
             cursor.close()
-        if conexion and conexion.is_connected():
-            conexion.close()
+        if conn:
+            conn.close()
 
 
 @app.get("/usuario_establecimiento")
