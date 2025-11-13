@@ -853,6 +853,41 @@ def obtener_establecimientos():
         if conexion and conexion.is_connected():
             conexion.close()
 
+@app.get("/establecimientos/{id}")
+def obtener_establecimiento_por_id(id: int):
+    """
+    Obtiene un establecimiento específico por su ID
+    """
+    conexion = conectar_db()
+    if conexion is None:
+        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
+    
+    cursor = None
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        
+        # Consulta SQL para obtener el establecimiento por ID
+        cursor.execute("SELECT e.* " \
+        "FROM establecimientos e " \
+        "WHERE e.id = %s", (id,))
+        establecimiento = cursor.fetchone()
+        
+        if not proceso:
+            raise HTTPException(status_code=404, detail="Establecimiento no encontrado")
+        
+        return establecimiento
+    
+    except Error as e:
+        print(f"Error al consultar proceso: {e}")
+        raise HTTPException(status_code=500, detail=f"Error al consultar la base de datos: {e}")
+    
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion and conexion.is_connected():
+            conexion.close()
+
+
 @app.get("/usuario_establecimiento")
 def obtener_establecimientos_usuario(usuario_id: int = Query(...)):
     conexion = conectar_db()
