@@ -2954,12 +2954,8 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
 
         query = """
             SELECT
-                u.ID          AS id,
-                u.Nombre      AS nombre,
-                u.apellido    AS apellido,
-                u.usuario     AS nombreUsuario,
-                u.Rol         AS rol,
-                e.nombre      AS establecimientoNombre
+                u.*,
+                e.nombre AS establecimientoNombre
             FROM usuarios u
             JOIN usuario_establecimiento ue
                 ON ue.usuario_id = u.ID
@@ -2974,11 +2970,11 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
         usuarios = []
         for r in rows:
             usuarios.append({
-                "id": r["id"],
-                "nombre": r["nombre"] or "",
+                "ID": r["ID"],
+                "Nombre": r["Nombre"] or "",
                 "apellido": r.get("apellido") or "",
-                "nombreUsuario": r["nombreUsuario"] or "",
-                "rol": r["rol"] or "",
+                "usuario": r["usuario"] or "",
+                "Rol": r["Rol"] or "",
                 "establecimientoNombre": r.get("establecimientoNombre") or "",
             })
 
