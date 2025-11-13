@@ -2950,47 +2950,51 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
 
     cursor = None
     try:
-      cursor = conexion.cursor(dictionary=True)
+        cursor = conexion.cursor(dictionary=True)
 
-      query = """
-          SELECT
-              id,
-              nombre,
-              apellido,
-              nombre_usuario,
-              email,
-              rol,
-              establecimiento_id,
-              estado
-          FROM usuarios
-          WHERE establecimiento_id = %s
-      """
-      cursor.execute(query, (establecimiento_id,))
-      rows = cursor.fetchall()
+        query = """
+            SELECT
+                u.ID          AS id,
+                u.Nombre      AS nombre,
+                u.apellido    AS apellido,
+                u.usuario     AS nombreUsuario,
+                u.Rol         AS rol,
+                e.nombre      AS establecimientoNombre
+            FROM usuarios u
+            JOIN usuario_establecimiento ue
+                ON ue.usuario_id = u.ID
+            JOIN establecimientos e
+                ON e.id = ue.establecimiento_id
+            WHERE ue.establecimiento_id = %s
+        """
 
-      # Devolver en camelCase como espera Flutter
-      usuarios = []
-      for r in rows:
-          usuarios.append({
-              "id": r["id"],
-              "nombre": r["nombre"],
-              "apellido": r.get("apellido", ""),
-              "nombreUsuario": r["nombre_usuario"],
-              "email": r.get("email", ""),
-              "rol": r.get("rol", ""),
-              "establecimientoId": r.get("establecimiento_id"),
-              "estado": r.get("estado", ""),
-          })
+        cursor.execute(query, (establecimiento_id,))
+        rows = cursor.fetchall()
 
-      return usuarios
+        usuarios = []
+        for r in rows:
+            usuarios.append({
+                "id": r["id"],
+                "nombre": r["nombre"] or "",
+                "apellido": r.get("apellido") or "",
+                "nombreUsuario": r["nombreUsuario"] or "",
+                "rol": r["rol"] or "",
+                "establecimientoNombre": r.get("establecimientoNombre") or "",
+            })
+
+        return usuarios
 
     except Exception as e:
-      raise HTTPException(status_code=500, detail=f"Error al obtener usuarios del establecimiento: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error al obtener usuarios del establecimiento: {e}"
+        )
     finally:
-      if cursor:
-          cursor.close()
-      if conexion:
-          conexion.close()
+        if cursor:
+            cursor.close()
+        if conexion:
+            conexion.close()
+
 
 @app.delete("/usuarios/{usuario_id}")
 async def eliminar_usuario(usuario_id: int):
