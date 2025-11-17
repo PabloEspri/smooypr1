@@ -2993,10 +2993,9 @@ def obtener_usuarios_por_establecimiento(establecimiento_id: int):
         if conexion:
             conexion.close()
 
-
 @app.delete("/usuarios/{usuario_id}")
 async def eliminar_usuario(usuario_id: int):
-    """Elimina un usuario por su ID."""
+    """Elimina un usuario por su ID, reasignando sus referencias a 0."""
     try:
         conexion = conectar_db()
         if not conexion:
@@ -3004,52 +3003,86 @@ async def eliminar_usuario(usuario_id: int):
             
         cursor = conexion.cursor(dictionary=True)
         
-        # Paso 1: Verificar si el usuario existe realmente
-        cursor.execute("SELECT ID, usuario, Rol FROM usuarios WHERE ID = %s", (usuario_id,))
+        # Paso 1: Verificar si el usuario existe
+        cursor.execute("SELECT ID, usuario FROM usuarios WHERE ID = %s", (usuario_id,))
         usuario = cursor.fetchone()
-        
+
         if not usuario:
-            # El usuario no existe - proporcionar información clara sobre el error
-            print(f"Error al eliminar: Usuario con ID {usuario_id} no encontrado")
-            return {"success": False, "message": f"Usuario con ID {usuario_id} no encontrado en la base de datos"}
-        
-        # Log para depuración
-        print(f"Encontrado usuario a eliminar: {usuario}")
-        
-        # Paso 2: Verificar relaciones con otras tablas
-        cursor.execute("SELECT COUNT(*) as count FROM usuario_establecimiento WHERE usuario_id = %s", (usuario_id,))
-        rel_count = cursor.fetchone()['count']
-        print(f"Este usuario tiene {rel_count} relaciones en usuario_establecimiento")
-        
-        # Paso 3: Eliminar primero las relaciones en tablas dependientes
-        cursor.execute("DELETE FROM usuario_establecimiento WHERE usuario_id = %s", (usuario_id,))
-        rel_deleted = cursor.rowcount
-        print(f"Eliminadas {rel_deleted} relaciones para el usuario {usuario_id}")
-        
-        # Paso 4: Luego eliminar el usuario
+            return {"success": False, "message": f"Usuario con ID {usuario_id} no encontrado"}
+
+        print(f"🧹 Eliminando usuario y reasignando referencias: {usuario}")
+
+        # ===========
+        # REASIGNAR TODAS LAS REFERENCIAS DEL USUARIO A 0
+        # ===========
+
+        updates = [
+
+            # avisos
+            ("UPDATE avisos SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # aviso_comentarios
+            ("UPDATE aviso_comentarios SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # aviso_imagenes
+            ("UPDATE aviso_imagenes SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # procesos2
+            ("UPDATE procesos2 SET usuario_id = 0 WHERE usuario_id = %s", True),
+            ("UPDATE procesos2 SET id_usuario_verificador = 0 WHERE id_usuario_verificador = %s", True),
+
+            # proceso_comentario
+            ("UPDATE proceso_comentario SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # proceso_imagenes
+            ("UPDATE proceso_imagenes SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # proceso_tareas
+            ("UPDATE proceso_tareas SET usuario_completado_id = 0 WHERE usuario_completado_id = %s", True),
+
+            # tarea_comentario
+            ("UPDATE tarea_comentario SET usuario_id = 0 WHERE usuario_id = %s", True),
+
+            # usuario_establecimiento
+            ("UPDATE usuario_establecimiento SET usuario_id = 0 WHERE usuario_id = %s", True),
+        ]
+
+        total_updates = 0
+        for query, log in updates:
+            cursor.execute(query, (usuario_id,))
+            total_updates += cursor.rowcount
+            if log:
+                print(f"✔ {cursor.rowcount} registros actualizados en: {query}")
+
+        # ===========
+        # ELIMINAR USUARIO
+        # ===========
         cursor.execute("DELETE FROM usuarios WHERE ID = %s", (usuario_id,))
         user_deleted = cursor.rowcount
-        print(f"Eliminados {user_deleted} registros de usuario")
-        
+
         conexion.commit()
         cursor.close()
         conexion.close()
-        
+
         if user_deleted > 0:
             return {
-                "success": True, 
-                "message": f"Usuario '{usuario.get('usuario', 'desconocido')}' (ID: {usuario_id}) eliminado correctamente",
+                "success": True,
+                "message": f"Usuario '{usuario['usuario']}' eliminado y referencias reasignadas a 0",
                 "details": {
-                    "user_id": usuario_id,
-                    "relations_removed": rel_deleted
+                    "referencias_actualizadas": total_updates,
+                    "usuario_eliminado": usuario_id
                 }
             }
         else:
-            return {"success": False, "message": f"No se pudo eliminar el usuario con ID {usuario_id}"}
-            
+            return {
+                "success": False,
+                "message": f"No se pudo eliminar el usuario con ID {usuario_id}"
+            }
+
     except Exception as e:
-        print(f"Error detallado al eliminar usuario {usuario_id}: {str(e)}")
+        print(f"❌ Error eliminando usuario {usuario_id}: {str(e)}")
         return {"success": False, "message": f"Error al eliminar usuario: {str(e)}"}
+
 # Funciones para generación automática de procesos usando la tabla procesos2
 
 # Modelo para las tareas
