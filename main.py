@@ -3032,7 +3032,7 @@ async def eliminar_usuario(usuario_id: int):
             ("UPDATE procesos2 SET id_usuario_verificador = 0 WHERE id_usuario_verificador = %s", True),
 
             # proceso_comentario
-            ("UPDATE proceso_comentario SET usuario_id = 0 WHERE usuario_id = %s", True),
+            ("UPDATE proceso_comentarios SET usuario_id = 0 WHERE usuario_id = %s", True),
 
             # proceso_imagenes
             ("UPDATE proceso_imagenes SET usuario_id = 0 WHERE usuario_id = %s", True),
