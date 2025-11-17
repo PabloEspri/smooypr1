@@ -5364,39 +5364,5 @@ async def obtener_todos_establecimientos(request: Request):
             cursor.close()
         if conexion and conexion.is_connected():
             conexion.close()
-
-@app.get("/usuarios/nombre-completo/{usuario_id}")
-async def obtener_nombre_completo_usuario(usuario_id: int):
-    """
-    Obtiene el nombre completo de un usuario dado su ID
-    """
-    conexion = conectar_db()
-    if conexion is None:
-        raise HTTPException(status_code=500, detail="No se pudo conectar a la base de datos")
-    
-    cursor = None
-    try:
-        cursor = conexion.cursor(dictionary=True)
-        
-        # Consultar el nombre y apellido del usuario
-        cursor.execute("SELECT Nombre, apellido FROM usuarios WHERE ID = %s", (usuario_id,))
-        usuario = cursor.fetchone()
-        
-        if not usuario:
-            raise HTTPException(status_code=404, detail=f"Usuario con ID {usuario_id} no encontrado")
-        
-        nombre_completo = f"{usuario['Nombre']} {usuario['apellido']}".strip()
-        
-        return {"nombre_completo": nombre_completo}
-    
-    except Error as e:
-        print(f"Error al consultar nombre completo del usuario: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al consultar la base de datos: {e}")
-    
-    finally:
-        if cursor:
-            cursor.close()
-        if conexion and conexion.is_connected():
-            conexion.close()
             
 # ===== FIN NUEVOS ENDPOINTS =====
