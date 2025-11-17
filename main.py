@@ -3040,8 +3040,9 @@ async def eliminar_usuario(usuario_id: int):
             # proceso_tareas
             ("UPDATE proceso_tareas SET usuario_completado_id = 0 WHERE usuario_completado_id = %s", True),
 
-            # tarea_comentario
+            # tareas
             ("UPDATE tarea_comentarios SET usuario_id = 0 WHERE usuario_id = %s", True),
+            ("UPDATE tarea_imagenes SET usuario_id = 0 WHERE usuario_id = %s", True),
 
             ("DELETE FROM usuario_establecimiento WHERE usuario_id = %s", True),
 
