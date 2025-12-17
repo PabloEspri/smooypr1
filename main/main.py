@@ -1654,67 +1654,36 @@ def actualizar_aviso(aviso_id: int, aviso_update: AvisoUpdate):
 
 @app.get("/usuarios")
 async def obtener_usuarios():
-    """Obtiene la lista de todos los usuarios con sus establecimientos agrupados."""
-    print("=" * 80)
-    print("🔥 EJECUTANDO ENDPOINT /usuarios CON AGRUPACIÓN DE ESTABLECIMIENTOS")
-    print("=" * 80)
-    
+    """Obtiene la lista de todos los usuarios con información de sus establecimientos."""
     try:
         conexion = conectar_db()
         if not conexion:
-            return {"usuarios": []}
+            return {"success": False, "message": "Error de conexión a la base de datos"}
             
         cursor = conexion.cursor(dictionary=True)
         
-        # 1. Primero obtenemos la lista de usuarios única
-        cursor.execute("SELECT ID, Nombre, apellido, usuario, Rol FROM usuarios ORDER BY ID")
-        usuarios_raw = cursor.fetchall()
+        # Realizar JOIN para obtener también el nombre del establecimiento
+        query = """
+            SELECT u.ID, u.Nombre, u.apellido, u.usuario, u.Rol, 
+                   e.id as establecimiento_id, e.nombre as establecimiento_nombre
+            FROM usuarios u
+            LEFT JOIN usuario_establecimiento ue ON u.ID = ue.usuario_id
+            LEFT JOIN establecimientos e ON ue.establecimiento_id = e.id
+            ORDER BY u.ID
+        """
         
-        print(f"📊 Total usuarios obtenidos: {len(usuarios_raw)}")
-        
-        # 2. Para cada usuario, buscamos sus establecimientos
-        usuarios_agrupados = []
-        for usuario in usuarios_raw:
-            usuario_id = usuario['ID']
-            
-            # Obtener establecimientos de este usuario
-            cursor.execute("""
-                SELECT e.id, e.nombre 
-                FROM establecimientos e
-                JOIN usuario_establecimiento ue ON e.id = ue.establecimiento_id
-                WHERE ue.usuario_id = %s
-            """, (usuario_id,))
-            establecimientos = cursor.fetchall()
-            
-            print(f"👤 Usuario {usuario['usuario']} - Establecimientos encontrados: {len(establecimientos)}")
-            if establecimientos:
-                print(f"   📍 Establecimientos: {establecimientos}")
-            
-            # Añadir establecimientos al usuario
-            usuario_completo = usuario.copy()
-            usuario_completo['establecimientos'] = establecimientos
-            
-            # También mantener campos individuales para compatibilidad
-            if establecimientos:
-                usuario_completo['establecimiento_id'] = establecimientos[0]['id']
-                usuario_completo['establecimiento_nombre'] = establecimientos[0]['nombre']
-            else:
-                usuario_completo['establecimiento_id'] = None
-                usuario_completo['establecimiento_nombre'] = None
-            
-            usuarios_agrupados.append(usuario_completo)
-        
-        print(f"✅ Devolviendo {len(usuarios_agrupados)} usuarios con establecimientos")
-        print("=" * 80)
+        cursor.execute(query)
+        usuarios = cursor.fetchall()
         
         cursor.close()
         conexion.close()
         
-        return {"usuarios": usuarios_agrupados}
+        return {"usuarios": usuarios}
+        
     except Exception as e:
-        print(f"❌ Error: {e}")
-        return {"usuarios": []}
-    
+        print(f"Error al obtener usuarios: {e}")
+        return {"success": False, "message": f"Error al obtener usuarios: {str(e)}"}
+
 @app.get("/avisos/")
 def obtener_avisos(establecimiento_id: Optional[int] = Query(None)):
     """
@@ -2865,6 +2834,56 @@ async def crear_usuario(usuario_data: dict):
             cursor.close()
         if conexion and conexion.is_connected():
             conexion.close()
+
+@app.get("/usuarios")
+async def obtener_usuarios():
+    """Obtiene la lista de todos los usuarios con sus establecimientos agrupados."""
+    try:
+        conexion = conectar_db()
+        if not conexion:
+            return {"usuarios": []}
+            
+        cursor = conexion.cursor(dictionary=True)
+        
+        # 1. Primero obtenemos la lista de usuarios única
+        cursor.execute("SELECT ID, Nombre, apellido, usuario, Rol FROM usuarios ORDER BY ID")
+        usuarios_raw = cursor.fetchall()
+        
+        # 2. Para cada usuario, buscamos sus establecimientos
+        usuarios_agrupados = []
+        for usuario in usuarios_raw:
+            usuario_id = usuario['ID']
+            
+            # Obtener establecimientos de este usuario
+            cursor.execute("""
+                SELECT e.id, e.nombre 
+                FROM establecimientos e
+                JOIN usuario_establecimiento ue ON e.id = ue.establecimiento_id
+                WHERE ue.usuario_id = %s
+            """, (usuario_id,))
+            establecimientos = cursor.fetchall()
+            
+            # Añadir establecimientos al usuario
+            usuario_completo = usuario.copy()
+            usuario_completo['establecimientos'] = establecimientos
+            
+            # También mantener campos individuales para compatibilidad
+            if establecimientos:
+                usuario_completo['establecimiento_id'] = establecimientos[0]['id']
+                usuario_completo['establecimiento_nombre'] = establecimientos[0]['nombre']
+            else:
+                usuario_completo['establecimiento_id'] = None
+                usuario_completo['establecimiento_nombre'] = None
+            
+            usuarios_agrupados.append(usuario_completo)
+        
+        cursor.close()
+        conexion.close()
+        
+        return {"usuarios": usuarios_agrupados}
+    except Exception as e:
+        print(f"Error: {e}")
+        return {"usuarios": []}
     
 @app.delete("/usuarios/{usuario_id}")
 async def eliminar_usuario(usuario_id: int):
