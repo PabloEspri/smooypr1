@@ -1652,38 +1652,6 @@ def actualizar_aviso(aviso_id: int, aviso_update: AvisoUpdate):
         if conexion and conexion.is_connected():
             conexion.close()
 
-@app.get("/usuarios")
-async def obtener_usuarios():
-    """Obtiene la lista de todos los usuarios con información de sus establecimientos."""
-    try:
-        conexion = conectar_db()
-        if not conexion:
-            return {"success": False, "message": "Error de conexión a la base de datos"}
-            
-        cursor = conexion.cursor(dictionary=True)
-        
-        # Realizar JOIN para obtener también el nombre del establecimiento
-        query = """
-            SELECT u.ID, u.Nombre, u.apellido, u.usuario, u.Rol, 
-                   e.id as establecimiento_id, e.nombre as establecimiento_nombre
-            FROM usuarios u
-            LEFT JOIN usuario_establecimiento ue ON u.ID = ue.usuario_id
-            LEFT JOIN establecimientos e ON ue.establecimiento_id = e.id
-            ORDER BY u.ID
-        """
-        
-        cursor.execute(query)
-        usuarios = cursor.fetchall()
-        
-        cursor.close()
-        conexion.close()
-        
-        return {"usuarios": usuarios}
-        
-    except Exception as e:
-        print(f"Error al obtener usuarios: {e}")
-        return {"success": False, "message": f"Error al obtener usuarios: {str(e)}"}
-
 @app.get("/avisos/")
 def obtener_avisos(establecimiento_id: Optional[int] = Query(None)):
     """
