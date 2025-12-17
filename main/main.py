@@ -1655,6 +1655,10 @@ def actualizar_aviso(aviso_id: int, aviso_update: AvisoUpdate):
 @app.get("/usuarios")
 async def obtener_usuarios():
     """Obtiene la lista de todos los usuarios con sus establecimientos agrupados."""
+    print("=" * 80)
+    print("🔥 EJECUTANDO ENDPOINT /usuarios CON AGRUPACIÓN DE ESTABLECIMIENTOS")
+    print("=" * 80)
+    
     try:
         conexion = conectar_db()
         if not conexion:
@@ -1665,6 +1669,8 @@ async def obtener_usuarios():
         # 1. Primero obtenemos la lista de usuarios única
         cursor.execute("SELECT ID, Nombre, apellido, usuario, Rol FROM usuarios ORDER BY ID")
         usuarios_raw = cursor.fetchall()
+        
+        print(f"📊 Total usuarios obtenidos: {len(usuarios_raw)}")
         
         # 2. Para cada usuario, buscamos sus establecimientos
         usuarios_agrupados = []
@@ -1680,6 +1686,10 @@ async def obtener_usuarios():
             """, (usuario_id,))
             establecimientos = cursor.fetchall()
             
+            print(f"👤 Usuario {usuario['usuario']} - Establecimientos encontrados: {len(establecimientos)}")
+            if establecimientos:
+                print(f"   📍 Establecimientos: {establecimientos}")
+            
             # Añadir establecimientos al usuario
             usuario_completo = usuario.copy()
             usuario_completo['establecimientos'] = establecimientos
@@ -1694,14 +1704,17 @@ async def obtener_usuarios():
             
             usuarios_agrupados.append(usuario_completo)
         
+        print(f"✅ Devolviendo {len(usuarios_agrupados)} usuarios con establecimientos")
+        print("=" * 80)
+        
         cursor.close()
         conexion.close()
         
         return {"usuarios": usuarios_agrupados}
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"❌ Error: {e}")
         return {"usuarios": []}
-
+    
 @app.get("/avisos/")
 def obtener_avisos(establecimiento_id: Optional[int] = Query(None)):
     """
